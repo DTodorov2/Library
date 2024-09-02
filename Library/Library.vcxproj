@@ -133,6 +133,10 @@
     <ClInclude Include="..\include\Library.h" />
     <ClInclude Include="..\include\User.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Book.cpp" />
+    <ClCompile Include="..\src\User.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
