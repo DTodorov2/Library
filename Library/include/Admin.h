@@ -3,6 +3,8 @@
 
 class Admin : public User
 {
+
+	void validateIsAdmin(bool& isAdmin) const;
 public:
 	Admin(const std::string& username, const std::string& pass);
 
