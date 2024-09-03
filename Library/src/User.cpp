@@ -2,6 +2,13 @@
 #include <iostream>
 #include <algorithm>
 
+User::User(const std::string& username, const std::string& pass, bool isAdmin)
+{
+	this->username = username;
+	this->pass = pass;
+	this->isAdmin = isAdmin;
+}
+
 void User::printBook(const Book& book) const
 {
 	std::cout << "Book number: ";
@@ -122,3 +129,4 @@ void User::booksSort(const std::vector<Book>& books, const std::string& option, 
 
 	std::cout << "The books are sorted successfully!" << std::endl;
 }
+

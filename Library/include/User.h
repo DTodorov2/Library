@@ -6,7 +6,7 @@ class User
 {
 	std::string username;
 	std::string password;
-	bool isAdmin;
+	bool isAdmin = false;
 
 	void printBook(const Book& book) const;
 	void sortBooksTitle(const std::vector<Book>& books, bool ascending);
@@ -15,11 +15,9 @@ class User
 	void sortBooksRating(const std::vector<Book>& books, bool ascending);
 	
 public:
-	void open(const std::string& fileName) const; //opens a File
-	void close(/*tuka nqkuv stream priema*/) const; // closes a file
-	void save(/*tuka nqkuv stream priema*/) const;
-	void saveas(/*tuka nqkuv stream priema*/) const;
-	void help() const;
+	User() = default;
+	User(const std::string& username, const std::string& pass, bool isAdmin);
+
 	void booksAll(const std::vector<Book>& books) const;
 	void booksFind(const std::vector<Book>& books, const std::string& option, const std::string& optionString) const;
 	void booksView(const std::vector<Book>& books, int bookId) const;
