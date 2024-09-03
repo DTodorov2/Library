@@ -5,8 +5,23 @@
 User::User(const std::string& username, const std::string& pass, bool isAdmin)
 {
 	this->username = username;
-	this->pass = pass;
+	this->password = pass;
 	this->isAdmin = isAdmin;
+}
+
+const std::string& User::getUsername() const
+{
+	return username;
+}
+
+const std::string& User::getPass() const
+{
+	return password;
+}
+
+bool User::isAdministrator() const
+{
+	return isAdmin;
 }
 
 void User::printBook(const Book& book) const

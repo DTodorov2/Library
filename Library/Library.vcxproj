@@ -127,17 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Admin.h" />
-    <ClInclude Include="..\include\Book.h" />
-    <ClInclude Include="..\include\Client.h" />
-    <ClInclude Include="..\include\Library.h" />
-    <ClInclude Include="..\include\User.h" />
+    <ClInclude Include="include\Admin.h" />
+    <ClInclude Include="include\Book.h" />
+    <ClInclude Include="include\Client.h" />
+    <ClInclude Include="include\Helper.h" />
+    <ClInclude Include="include\Library.h" />
+    <ClInclude Include="include\User.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Book.cpp" />
-    <ClCompile Include="..\src\User.cpp" />
     <ClCompile Include="src\Admin.cpp" />
+    <ClCompile Include="src\Book.cpp" />
     <ClCompile Include="src\Client.cpp" />
+    <ClCompile Include="src\Helper.cpp" />
+    <ClCompile Include="src\User.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
