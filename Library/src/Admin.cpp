@@ -47,12 +47,61 @@ bool Admin::removeUser(std::vector<User*>& users, const std::string& username) c
 	}
 }
 
-bool Admin::addBook(std::vector<Book>& books) const
+void Admin::validateBookTitleAuthor(std::string& criteria, const std::string& which) const
 {
-
+	std::regex reg("^[a-zA-Z]+$");
+	std::cout << "Enter the " << which << " of the book: ";
+	std::getline(std::cin, criteria);
+	while (!std::regex_match(criteria, reg))
+	{
+		std::cout << "The " << which << "must contain only letters and have length mre than zero!" << std::endl;
+		std::cout << "Your answer: ";
+		std::getline(std::cin, criteria);
+	}
 }
 
-bool Admin::removeBook(std::vector<Book>& books) const
+void Admin::validatePubYearRating(size_t& num, const std::string& which) const
 {
+	std::regex reg("^[0-9]+$");
+	std::string numStr;
+	std::cout << "Enter the " << which << " of the book: ";
+	std::getline(std::cin, numStr);
+	while (!std::regex_match(numStr, reg))
+	{
+		std::cout << "The " << which << " must be greater or equal to zero and have length greater than zero!" << std::endl;
+		std::cout << "Your answer: ";
+		std::getline(std::cin, numStr);
+	}
 
+	num = std::stoull(numStr);
+}
+
+bool Admin::addBook(std::vector<Book>& books, int id) const
+{
+	std::string title, author, genre;
+	size_t pubYear, rating;
+
+	validateBookTitleAuthor(title, "title");
+	validateBookTitleAuthor(author, "author");
+	validatePubYearRating(pubYear, "publication year");
+	validatePubYearRating(rating, "rating");
+	//validate genre
+
+	//find first empty index
+	books.push_back(Book(id, title, author, genre, pubYear, rating));
+	std::cout << "The book is added successfully!" << std::endl;
+}
+
+bool Admin::removeBook(std::vector<Book>& books, int id) const
+{
+	size_t booksLen = books.size();
+	for (size_t i = 0; i < booksLen; i++)
+	{
+		if (books[i].getId() == id)
+		{
+			books[i].setId(-1);
+			return;
+		}
+	}
+	std::cout << "The book is removed successfully!" << std::endl;
 }
