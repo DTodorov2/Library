@@ -44,3 +44,8 @@ Book::Book(int id, const std::string& title, const std::string& author, const st
 	this->publicationYear = publicationYear;
 	this->rating = rating;
 }
+
+void Book::setId(int id)
+{
+	this->id = id;
+}
