@@ -76,6 +76,20 @@ void Admin::validatePubYearRating(size_t& num, const std::string& which) const
 	num = std::stoull(numStr);
 }
 
+int Admin::findFirstEmptyIndex(const std::vector<Book>& books) const
+{
+	int empty = -1;
+	int booksLen = books.size();
+	for (size_t i = 0; i < booksLen; i++)
+	{
+		if (books[i].getId() == -1)
+		{
+			return i;
+		}
+	}
+	return booksLen;
+}
+
 bool Admin::addBook(std::vector<Book>& books, int id) const
 {
 	std::string title, author, genre;
@@ -87,8 +101,8 @@ bool Admin::addBook(std::vector<Book>& books, int id) const
 	validatePubYearRating(rating, "rating");
 	//validate genre
 
-	//find first empty index
-	books.push_back(Book(id, title, author, genre, pubYear, rating));
+	int firstEmptyIndex = findFirstEmptyIndex(books);
+	books.push_back(Book(firstEmptyIndex, title, author, genre, pubYear, rating));
 	std::cout << "The book is added successfully!" << std::endl;
 }
 

@@ -7,6 +7,7 @@ class Admin : public User
 	void validateBookTitleAuthor(std::string& criteria, const std::string& which) const;
 	//kak da validiram genre -> dali da napravq set ot vuzmojni janrove i da proverqvam dali e vutre?
 	void validatePubYearRating(size_t& num, const std::string& which) const;
+	int findFirstEmptyIndex(const std::vector<Book>& books) const;
 	
 public:
 	Admin(const std::string& username, const std::string& pass);
