@@ -34,4 +34,6 @@ public:
 
 	void readFromFile(std::ifstream& ifs);
 	void writeToFile(std::ofstream& ofs) const;
+
+	virtual ~User() = default;
 };
