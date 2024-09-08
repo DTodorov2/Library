@@ -9,19 +9,22 @@ class Library
 
 	int currentUserIndex = -1;
 
-	bool isItUnique(const std::string& username) const;
+	void validateFileName(std::string& fileName) const;
 
 	template <typename T>
-	void readFromVector(std::vector<T>& vec) const;
+	void readFromFile(const std::ifstream& ifs, std::vector<T>& vec);
+
+	template <typename T>
+	void writeToFile(const std::ofstream& ofs, const std::vector<T>& vec) const;
 	//BIG 6
 
 public:
 	void login(const std::string& username, const std::string& pass);
 	void logout();
-	void open(const std::string& fileName) const; //opens a File
-	void close(std::fstream& f) const; // closes a file
-	void save(std::fstream& f) const;
-	void saveas(std::fstream& f) const;
+	void open(const std::string& fileName); //opens a File
+	void close(std::string& fileName); // closes a file // oshte nz kak
+	void save(const std::string& fileName) const;
+	void saveAs() const;
 	void help() const;
 
 	void setCurrentUserIndex(int id);
