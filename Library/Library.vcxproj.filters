@@ -15,22 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\User.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Library.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Book.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Admin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Book.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\User.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -48,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -139,6 +139,7 @@
     <ClCompile Include="src\Book.cpp" />
     <ClCompile Include="src\Client.cpp" />
     <ClCompile Include="src\Helper.cpp" />
+    <ClCompile Include="src\Library.cpp" />
     <ClCompile Include="src\User.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
