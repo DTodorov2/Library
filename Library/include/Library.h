@@ -11,14 +11,27 @@ class Library
 
 	void validateFileName(std::string& fileName) const;
 
+	//template for reading books and users
 	template <typename T>
 	void readFromFile(const std::ifstream& ifs, std::vector<T>& vec);
 
+	//template for reading books and users
 	template <typename T>
 	void writeToFile(const std::ofstream& ofs, const std::vector<T>& vec) const;
-	//BIG 6
 
+	void moveFrom(Library&& other);
+	void copyFrom(const Library& other);
+	void free();
 public:
+	//BIG 6
+	Library() = default;
+	Library(const Library& other);
+	Library(Library&& other);
+	Library& operator=(const Library& other);
+	Library& operator=(Library&& other);
+	~Library();
+
+
 	void login(const std::string& username, const std::string& pass);
 	void logout();
 	void open(const std::string& fileName); //opens a File
