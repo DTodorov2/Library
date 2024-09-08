@@ -1,6 +1,7 @@
 #include "../include/User.h"
 #include <iostream>
 #include <algorithm>
+#include <fstream>
 
 User::User(const std::string& username, const std::string& pass, bool isAdmin)
 {
@@ -145,3 +146,26 @@ void User::booksSort(const std::vector<Book>& books, const std::string& option, 
 	std::cout << "The books are sorted successfully!" << std::endl;
 }
 
+void User::readFromFile(std::ifstream& ifs)
+{
+	int usernameLen = 0;
+	ifs.read((char*)&usernameLen, sizeof(usernameLen));
+	username.resize(usernameLen);
+	ifs.read(&username[0], usernameLen);
+	int passLen = 0;
+	ifs.read((char*)&passLen, sizeof(passLen));
+	password.resize(passLen);
+	ifs.read(&password[0], passLen);
+	ifs.read((char*)&isAdmin, sizeof(isAdmin));
+}
+
+void User::writeToFile(std::ofstream& ofs) const
+{
+	int usernameLen = username.size();
+	ofs.write((const char*)&usernameLen, sizeof(usernameLen));
+	ofs.write((const char*)username.c_str(), usernameLen);
+	int passLen = password.size();
+	ofs.write((const char*)&passLen, sizeof(passLen));
+	ofs.write((const char*)password.c_str(), passLen);
+	ofs.write((const char*)&isAdmin, sizeof(isAdmin));
+}

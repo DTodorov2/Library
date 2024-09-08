@@ -47,7 +47,7 @@ void Library::writeToFile(const std::ofstream& ofs, const std::vector<T>& vec) c
 
 void Library::open(const std::string& fileName) //opens a File
 {
-	std::ifstream ifs(fileName, std::ios::in | std::ios::out);
+	std::ifstream ifs(fileName, std::ios::in | std::ios::out | std::ios::binary);
 	if (!ifs.is_open())
 	{
 		throw std::exception("Could not open a file!");
@@ -65,7 +65,7 @@ void Library::close(std::string& fileName) // closes a file
 
 void Library::save(const std::string& fileName) const
 {
-	std::ofstream ofs(fileName, std::ios::in | std::ios::out | std::ios::trunc);
+	std::ofstream ofs(fileName, std::ios::in | std::ios::out | std::ios::trunc | std::ios::binary);
 	if (!ofs.is_open())
 	{
 		throw std::exception("Could not open a file!");

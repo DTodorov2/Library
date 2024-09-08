@@ -27,8 +27,8 @@ public:
 
 	void setId(int id);
 
-	void writeToFile(const std::ofstream& ofs) const;
-	void readFromFile(const std::ifstream& ifs);
+	void writeToFile(std::ofstream& ofs) const;
+	void readFromFile(std::ifstream& ifs);
 	//add key word
 	//set description
 };

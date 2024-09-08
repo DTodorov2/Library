@@ -32,6 +32,6 @@ public:
 	virtual bool addBook(std::vector<Book>& books, int id) const = 0;
 	virtual bool removeBook(std::vector<Book>& books, int id) const = 0;
 
-	void readFromFile(const std::ifstream& ifs);
-	void writeToFile(const std::ofstream& ofs) const;
+	void readFromFile(std::ifstream& ifs);
+	void writeToFile(std::ofstream& ofs) const;
 };
