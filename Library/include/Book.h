@@ -26,6 +26,9 @@ public:
 	const std::set<std::string>& getKeyWords() const;
 
 	void setId(int id);
+
+	void writeToFile(const std::ofstream& ofs) const;
+	void readFromFile(const std::ifstream& ifs);
 	//add key word
 	//set description
 };

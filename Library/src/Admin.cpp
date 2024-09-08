@@ -26,10 +26,51 @@ void Admin::validateIsAdmin(bool& isAdmin) const
 	}
 }
 
-bool Admin::addUser(std::vector<User*>& users, const std::string& username, const std::string& pass) const
+bool Admin::isItUnique(std::vector<User*>& users, const std::string& username) const
+{
+	size_t usersLen = users.size();
+	for (size_t i = 0; i < usersLen; i++)
+	{
+		if (users[i]->getUsername() == username)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+void Admin::validatePass(std::string& pass) const
+{
+	std::cout << "Enter password: ";
+	std::getline(std::cin, pass);
+	while (pass.size() == 0)
+	{
+		std::cout << "The password must be at least one character!" << std::endl;
+		std::cout << "Enter password: ";
+		std::getline(std::cin, pass);
+	}
+}
+
+void Admin::validateUsername(std::vector<User*>& users, std::string& username) const
+{
+	std::cout << "Enter username: ";
+	std::getline(std::cin, username);
+	while (username.size() == 0 || !isItUnique(users, username))
+	{
+		std::cout << "The username must be at least one character!" << std::endl;
+		std::cout << "Enter username: ";
+		std::getline(std::cin, username);
+		std::cout << std::endl;
+	}
+}
+
+bool Admin::addUser(std::vector<User*>& users) const
 {
 	bool isAdmin;
+	std::string username, pass;
 	validateIsAdmin(isAdmin);
+	validateUsername(users, username);
+	validatePass(pass);
 	User* newUser = Helper::UserFactory(username, pass, isAdmin);
 	users.push_back(newUser);
 }

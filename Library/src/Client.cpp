@@ -3,7 +3,7 @@
 
 Client::Client(const std::string& username, const std::string& pass) : User(username, pass, false) {};
 
-bool Client::addUser(std::vector<User*>& users, const std::string& username, const std::string& pass) const
+bool Client::addUser(std::vector<User*>& users) const
 {
 	std::cout << "Sorry, you are not allowed to add users into the system!" << std::endl;
 }

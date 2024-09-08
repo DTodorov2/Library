@@ -27,8 +27,11 @@ public:
 	void booksView(const std::vector<Book>& books, int bookId) const;
 	void booksSort(const std::vector<Book>& books, const std::string& option, bool isAsc);
 
-	virtual bool addUser(std::vector<User*>& users, const std::string& username, const std::string& pass) const = 0;
+	virtual bool addUser(std::vector<User*>& users) const = 0;
 	virtual bool removeUser(std::vector<User*>& users, const std::string& username) const = 0;
 	virtual bool addBook(std::vector<Book>& books, int id) const = 0;
 	virtual bool removeBook(std::vector<Book>& books, int id) const = 0;
+
+	void readFromFile(const std::ifstream& ifs);
+	void writeToFile(const std::ofstream& ofs) const;
 };
