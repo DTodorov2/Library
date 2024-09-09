@@ -32,7 +32,14 @@ void Library::readFromFile(std::ifstream& ifs, std::vector<T>& vec)
 	ifs.read((char*)&vecLen, sizeof(vecLen));
 	for (size_t i = 0; i < vecLen; i++)
 	{
-		vec[i].readFromFile(ifs); //taka nqma da sttane, shtoto kat imam User* trqbva da e s ->
+		if constexpr (std::is_pointer<T>::value)
+		{
+			vec[i]->readFromFile(ifs);
+		}
+		else
+		{
+			vec[i].readFromFile(ifs);
+		}
 	}
 }
 
@@ -43,7 +50,14 @@ void Library::writeToFile(std::ofstream& ofs, const std::vector<T>& vec) const
 	ofs.write((const char*)&vecLen, sizeof(vecLen));
 	for (size_t i = 0; i < vecLen; i++)
 	{
-		vec[i].writeToFile(ofs); //taka nqma da sttane, shtoto kat imam User* trqbva da e s ->
+		if constexpr (std::is_pointer<T>::value)
+		{
+			vec[i]->writeToFile(ofs);
+		}
+		else
+		{
+			vec[i].writeToFile(ofs);
+		}
 	}
 }
 
@@ -115,7 +129,6 @@ void Library::initiateShowingAllBooksInfo() const
 
 int Library::validateId(std::string& idStr, const std::string& what) const
 {
-	std::string idStr;
 	std::cout << "Id of the book you want to " << what << " or \"exit\": ";
 	std::getline(std::cin, idStr);
 	int id = std::stoi(idStr);
@@ -124,7 +137,7 @@ int Library::validateId(std::string& idStr, const std::string& what) const
 	{
 		if (idStr == "exit")
 		{
-			return;
+			return -1;
 		}
 		std::cout << "No such book!" << std::endl;
 		std::cout << "Id of the book you want to " << what << ": ";
@@ -174,7 +187,6 @@ void Library::validateSortingOption(std::string& option) const
 
 void Library::initiateFindingBook() const
 {
-	//validate option and optionStr
 	std::string option, optionStr;
 	validateFindingOption(option);
 	std::cout << "Enter value of option: ";
