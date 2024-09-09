@@ -10,14 +10,20 @@ class Library
 	int currentUserIndex = -1;
 
 	void validateFileName(std::string& fileName) const;
+	int validateId(std::string& idStr, const std::string& what) const;
+	void validateFindingOption(std::string& option) const;
+	void validateSortingOption(std::string& option) const;
+	void validateIsAsc(bool& isAsc) const;
+	int findFirstEmptyIndex() const;
+
 
 	//template for reading books and users
 	template <typename T>
-	void readFromFile(const std::ifstream& ifs, std::vector<T>& vec);
+	void readFromFile(std::ifstream& ifs, std::vector<T>& vec);
 
 	//template for reading books and users
 	template <typename T>
-	void writeToFile(const std::ofstream& ofs, const std::vector<T>& vec) const;
+	void writeToFile(std::ofstream& ofs, const std::vector<T>& vec) const;
 
 	void moveFrom(Library&& other);
 	void copyFrom(const Library& other);
@@ -31,7 +37,6 @@ public:
 	Library& operator=(Library&& other);
 	~Library();
 
-
 	void login(const std::string& username, const std::string& pass);
 	void logout();
 	void open(const std::string& fileName); //opens a File
@@ -39,6 +44,15 @@ public:
 	void save(const std::string& fileName) const;
 	void saveAs() const;
 	void help() const;
+
+	void initiateShowingAllBooksInfo() const;
+	void initiateShowingCurrentBookInfo() const;
+	void initiateFindingBook() const;
+	void initiateSortingBooks();
+	void initiateAddingUser();
+	void initiateRemovingUser();
+	void initiateAddingBook();
+	void initiateRemovingBook();
 
 	void setCurrentUserIndex(int id);
 };
