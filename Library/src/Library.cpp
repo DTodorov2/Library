@@ -110,6 +110,66 @@ void Library::setCurrentUserIndex(int id)
 	currentUserIndex = id;
 }
 
+void Library::moveFrom(Library&& other)
+{
+	users = std::move(other.users);
+	books = std::move(other.books);
+	other.users.clear();
+	other.books.clear();
+}
+void Library::copyFrom(const Library& other)
+{
+	size_t usersLen = other.users.size();
+	users.clear();
+	for (size_t i = 0; i < usersLen; i++)
+	{
+		users.push_back(other.users[i]);
+	}
+	books = other.books;
+}
+void Library::free()
+{
+	size_t usersLen = users.size();
+	for (size_t i = 0; i < usersLen; i++)
+	{
+		delete users[i];
+	}
+}
+Library::Library(const Library& other)
+{
+	copyFrom(other);
+}
+
+Library::Library(Library&& other)
+{
+	moveFrom(std::move(other));
+}
+
+Library& Library::operator=(const Library& other)
+{
+	if (this != &other)
+	{
+		free();
+		copyFrom(other);
+	}
+	return *this;
+}
+
+Library& Library::operator=(Library&& other)
+{
+	if (this != &other)
+	{
+		free();
+		moveFrom(std::move(other));
+	}
+	return *this;
+}
+
+Library::~Library()
+{
+	free();
+}
+
 template void Library::readFromFile<Book>(const std::ifstream& ifs, std::vector<Book>& vec);
 template void Library::readFromFile<User*>(const std::ifstream& ifs, std::vector<User*>& vec);
 
