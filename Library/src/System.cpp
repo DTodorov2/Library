@@ -53,6 +53,25 @@ int chooseKey()
 	return optionInt;
 }
 
+void validateFileName(std::string& fileName)
+{
+	std::regex fileNameReg("^[a-zA-Z0-9]+\.txt$");
+	std::cout << "You must open a file before procceeding with the actions or type \"exit\": ";
+	std::getline(std::cin, fileName);
+	while (!std::regex_match(fileName, fileNameReg))
+	{
+		if (fileName == "exit")
+		{
+			std::cout << "Thank you for using our platform!" << std::endl;
+			exit(0);
+		}
+		std::cout << "The file name must have .txt extension and be at least one character long!" << std::endl;
+		std::cout << "File name: ";
+		std::getline(std::cin, fileName);
+	}
+}
+
+
 void executeOption(Library& lib, int key, std::string& fileName)
 {
 
@@ -121,23 +140,6 @@ void executeOption(Library& lib, int key, std::string& fileName)
 	system("cls");
 }
 
-void validateFileName(std::string& fileName)
-{
-	std::regex fileNameReg("^[a-zA-Z0-9]+\.txt$");
-	std::cout << "You must open a file before procceeding with the actions or type \"exit\": ";
-	std::getline(std::cin, fileName);
-	while (!std::regex_match(fileName, fileNameReg))
-	{
-		if (fileName == "exit")
-		{
-			std::cout << "Thank you for using our platform!" << std::endl;
-			exit(0);
-		}
-		std::cout << "The file name must have .txt extension and be at least one character long!" << std::endl;
-		std::cout << "File name: ";
-		std::getline(std::cin, fileName);
-	}
-}
 
 int runProgram()
 {
@@ -159,24 +161,11 @@ int runProgram()
 		int key = 0;
 		key = chooseKey();
 		executeOption(lib, key, fileName);
-
-		if (key == 2)
-		{
-			lib.logout();
-			system("cls");
-			while (type == "")
-			{
-				int key = chooseKey(strings[2], 0, 4);
-				executeOption(sys, key, type);
-			}
-			continue;
-		}
-		executeOption(sys, key, type);
 	}
 }
 
 
 int main()
 {
-
+	runProgram();
 }
