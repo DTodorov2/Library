@@ -64,7 +64,7 @@ void Admin::validateUsername(std::vector<User*>& users, std::string& username) c
 	}
 }
 
-bool Admin::addUser(std::vector<User*>& users) const
+void Admin::addUser(std::vector<User*>& users) const
 {
 	bool isAdmin;
 	std::string username, pass;
@@ -75,7 +75,7 @@ bool Admin::addUser(std::vector<User*>& users) const
 	users.push_back(newUser);
 }
 
-bool Admin::removeUser(std::vector<User*>& users, const std::string& username) const
+void Admin::removeUser(std::vector<User*>& users, const std::string& username) const
 {
 	size_t usersLen = users.size();
 	for (size_t i = 0; i < usersLen; i++)
@@ -117,21 +117,7 @@ void Admin::validatePubYearRating(size_t& num, const std::string& which) const
 	num = std::stoull(numStr);
 }
 
-int Admin::findFirstEmptyIndex(const std::vector<Book>& books) const
-{
-	int empty = -1;
-	int booksLen = books.size();
-	for (size_t i = 0; i < booksLen; i++)
-	{
-		if (books[i].getId() == -1)
-		{
-			return i;
-		}
-	}
-	return booksLen;
-}
-
-bool Admin::addBook(std::vector<Book>& books, int id) const
+void Admin::addBook(std::vector<Book>& books, int id) const
 {
 	std::string title, author, genre;
 	size_t pubYear, rating;
@@ -142,12 +128,11 @@ bool Admin::addBook(std::vector<Book>& books, int id) const
 	validatePubYearRating(rating, "rating");
 	//validate genre
 
-	int firstEmptyIndex = findFirstEmptyIndex(books);
-	books.push_back(Book(firstEmptyIndex, title, author, genre, pubYear, rating));
+	books.push_back(Book(id, title, author, genre, pubYear, rating));
 	std::cout << "The book is added successfully!" << std::endl;
 }
 
-bool Admin::removeBook(std::vector<Book>& books, int id) const
+void Admin::removeBook(std::vector<Book>& books, int id) const
 {
 	size_t booksLen = books.size();
 	for (size_t i = 0; i < booksLen; i++)

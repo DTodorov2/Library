@@ -69,7 +69,7 @@ void User::booksView(const std::vector<Book>& books, int bookId) const
 	printBook(books[bookId]);
 }
 
-void User::sortBooksTitle(const std::vector<Book>& books, bool ascending)
+void User::sortBooksTitle(std::vector<Book>& books, bool ascending)
 {
 	auto compare = [ascending](const Book& a, const Book& b)
 	{
@@ -82,7 +82,7 @@ void User::sortBooksTitle(const std::vector<Book>& books, bool ascending)
 	std::sort(books.begin(), books.end(), compare);
 }
 
-void User::sortBooksAuthor(const std::vector<Book>& books, bool ascending)
+void User::sortBooksAuthor(std::vector<Book>& books, bool ascending)
 {
 	auto compare = [ascending](const Book& a, const Book& b)
 	{
@@ -96,7 +96,7 @@ void User::sortBooksAuthor(const std::vector<Book>& books, bool ascending)
 	std::sort(books.begin(), books.end(), compare);
 }
 
-void User::sortBooksYear(const std::vector<Book>& books, bool ascending)
+void User::sortBooksYear(std::vector<Book>& books, bool ascending)
 {
 	auto compare = [ascending](const Book& a, const Book& b)
 	{
@@ -110,7 +110,7 @@ void User::sortBooksYear(const std::vector<Book>& books, bool ascending)
 	std::sort(books.begin(), books.end(), compare);
 }
 
-void User::sortBooksRating(const std::vector<Book>& books, bool ascending)
+void User::sortBooksRating(std::vector<Book>& books, bool ascending)
 {
 	auto compare = [ascending](const Book& a, const Book& b)
 	{
@@ -124,7 +124,7 @@ void User::sortBooksRating(const std::vector<Book>& books, bool ascending)
 	std::sort(books.begin(), books.end(), compare);
 }
 
-void User::booksSort(const std::vector<Book>& books, const std::string& option, bool isAsc)
+void User::booksSort(std::vector<Book>& books, const std::string& option, bool isAsc)
 {
 	if (option == "title")
 	{
