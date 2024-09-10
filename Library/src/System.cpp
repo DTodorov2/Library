@@ -15,12 +15,12 @@ void validateOption(std::string& option)
 		}
 		if (option.length() == 2 && (option[0] - '0' >= 1 && option[0] - '0' <= 9))
 		{
-			if (option[1] - '0' >= 0 && option[1] - '0' <= 6)
+			if (option[1] - '0' >= 0 && option[1] - '0' <= 7)
 			{
 				return;
 			}
 		}
-		std::cout << "The number must be between 1 and 16: ";
+		std::cout << "The number must be between 1 and 17: ";
 		std::getline(std::cin, option);
 	}
 }
@@ -38,12 +38,13 @@ int chooseKey()
 	std::cout << "8 - Show all books info" << std::endl;
 	std::cout << "9 - Show a book info" << std::endl;
 	std::cout << "10 - Find a book" << std::endl;
-	std::cout << "11 - Sort the books" << std::endl;
-	std::cout << "12 - Add user" << std::endl;
-	std::cout << "13 - Remove user" << std::endl;
-	std::cout << "14 - Add book" << std::endl;
-	std::cout << "15 - Remove book" << std::endl;
-	std::cout << "16 - Exit" << std::endl;
+	std::cout << "11 - Add key words to a book" << std::endl;
+	std::cout << "12 - Sort the books" << std::endl;
+	std::cout << "13 - Add user" << std::endl;
+	std::cout << "14 - Remove user" << std::endl;
+	std::cout << "15 - Add book" << std::endl;
+	std::cout << "16 - Remove book" << std::endl;
+	std::cout << "17 - Exit" << std::endl;
 	std::cout << "-------------------" << std::endl;
 
 	std::cout << "Choose an option: ";
@@ -80,7 +81,9 @@ void executeOption(Library& lib, int key, std::string& fileName)
 	case 1:
 		{
 			std::string username, pass;
+			std::cout << "Enter username: ";
 			std::getline(std::cin, username);
+			std::cout << "Enter password: ";
 			std::getline(std::cin, pass);
 			lib.login(username, pass);
 			break;
@@ -114,21 +117,24 @@ void executeOption(Library& lib, int key, std::string& fileName)
 		lib.initiateFindingBook();
 		break;
 	case 11:
-		lib.initiateSortingBooks();
+		lib.initiateAddingKeyWords();
 		break;
 	case 12:
-		lib.initiateAddingUser();
+		lib.initiateSortingBooks();
 		break;
 	case 13:
-		lib.initiateRemovingUser();
+		lib.initiateAddingUser();
 		break;
 	case 14:
-		lib.initiateAddingBook();
+		lib.initiateRemovingUser();
 		break;
 	case 15:
-		lib.initiateRemovingBook();
+		lib.initiateAddingBook();
 		break;
 	case 16:
+		lib.initiateRemovingBook();
+		break;
+	case 17:
 		std::cout << "Thank you for using our platform!" << std::endl;
 		exit(0);
 		break;
@@ -152,8 +158,13 @@ int runProgram()
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << e.what() << ": File name: " << fileName << std::endl;
+		std::cout << e.what() << "- File name: " << fileName << std::endl;
 		exit(1);
+	}
+
+	if (lib.getUsersLen() == 0)
+	{
+		lib.addUser("admin", "i<3c++", true);
 	}
 
 	while (true)
