@@ -31,6 +31,7 @@ public:
 	virtual void removeUser(std::vector<User*>& users, const std::string& username) const = 0;
 	virtual void addBook(std::vector<Book>& books, int id) const = 0;
 	virtual void removeBook(std::vector<Book>& books, int id) const = 0;
+	virtual void addKeyWords(std::vector<Book>& books, int id) const = 0;
 
 	void readFromFile(std::ifstream& ifs);
 	void writeToFile(std::ofstream& ofs) const;

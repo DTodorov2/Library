@@ -22,3 +22,8 @@ void Client::removeBook(std::vector<Book>& books, int id) const
 {
 	std::cout << "Sorry, you are not allowed to remove books from the system!" << std::endl;
 }
+
+void Client::addKeyWords(std::vector<Book>& books, int id) const
+{
+	std::cout << "Sorry, you are not allowed to add key words to books!" << std::endl;
+}

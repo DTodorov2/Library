@@ -31,6 +31,6 @@ public:
 
 	void writeToFile(std::ofstream& ofs) const;
 	void readFromFile(std::ifstream& ifs);
-	//add key word
+	void addKeyWord(const std::string& word);
 	//set description
 };

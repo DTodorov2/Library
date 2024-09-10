@@ -125,11 +125,11 @@ void Library::help() const
 
 void Library::initiateShowingAllBooksInfo() const
 {
-	if (currentUserIndex == -1)
+	if (!isLoggedIn())
 	{
-		std::cout << "You need to login first!" << std::endl;
 		return;
 	}
+
 	users[currentUserIndex]->booksAll(books);
 }
 
@@ -155,9 +155,8 @@ int Library::validateId(std::string& idStr, const std::string& what) const
 
 void Library::initiateShowingCurrentBookInfo() const
 {
-	if (currentUserIndex == -1)
+	if (!isLoggedIn())
 	{
-		std::cout << "You need to login first!" << std::endl;
 		return;
 	}
 
@@ -199,9 +198,8 @@ void Library::validateSortingOption(std::string& option) const
 
 void Library::initiateFindingBook() const
 {
-	if (currentUserIndex == -1)
+	if (!isLoggedIn())
 	{
-		std::cout << "You need to login first!" << std::endl;
 		return;
 	}
 
@@ -234,9 +232,8 @@ void Library::validateIsAsc(bool& isAsc) const
 
 void Library::initiateSortingBooks()
 {
-	if (currentUserIndex == -1)
+	if (!isLoggedIn())
 	{
-		std::cout << "You need to login first!" << std::endl;
 		return;
 	}
 
@@ -251,9 +248,8 @@ void Library::initiateSortingBooks()
 
 void Library::initiateAddingUser()
 {
-	if (currentUserIndex == -1)
+	if (!isLoggedIn())
 	{
-		std::cout << "You need to login first!" << std::endl;
 		return;
 	}
 
@@ -274,11 +270,21 @@ int Library::findFirstEmptyIndex() const
 	return booksLen;
 }
 
-void Library::initiateRemovingUser()
+bool Library::isLoggedIn() const
 {
 	if (currentUserIndex == -1)
 	{
 		std::cout << "You need to login first!" << std::endl;
+		return false;
+	}
+	return true;
+}
+
+
+void Library::initiateRemovingUser()
+{
+	if (!isLoggedIn())
+	{
 		return;
 	}
 
@@ -290,9 +296,8 @@ void Library::initiateRemovingUser()
 
 void Library::initiateAddingBook()
 {
-	if (currentUserIndex == -1)
+	if (!isLoggedIn())
 	{
-		std::cout << "You need to login first!" << std::endl;
 		return;
 	}
 
@@ -302,9 +307,8 @@ void Library::initiateAddingBook()
 
 void Library::initiateRemovingBook()
 {
-	if (currentUserIndex == -1)
+	if (!isLoggedIn())
 	{
-		std::cout << "You need to login first!" << std::endl;
 		return;
 	}
 
@@ -316,6 +320,23 @@ void Library::initiateRemovingBook()
 	}
 	users[currentUserIndex]->removeBook(books, id);
 }
+
+void Library::initiateAddingKeyWords()
+{
+	if (!isLoggedIn())
+	{
+		return;
+	}
+
+	std::string idStr;
+	int id = validateId(idStr, "add words to");
+	if (idStr == "exit")
+	{
+		return;
+	}
+	users[currentUserIndex]->addKeyWords(books, id);
+}
+
 
 void Library::setCurrentUserIndex(int id)
 {

@@ -16,6 +16,8 @@ class Library
 	void validateIsAsc(bool& isAsc) const;
 	int findFirstEmptyIndex() const;
 
+	bool isLoggedIn() const;
+
 
 	//template for reading books and users
 	template <typename T>
@@ -55,6 +57,7 @@ public:
 	void initiateRemovingUser();
 	void initiateAddingBook();
 	void initiateRemovingBook();
+	void initiateAddingKeyWords();
 
 	void setCurrentUserIndex(int id);
 

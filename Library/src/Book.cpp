@@ -1,5 +1,6 @@
 #include "../include/Book.h"
 #include <fstream>
+#include <iostream>
 
 int Book::getId() const
 {
@@ -57,6 +58,13 @@ void Book::setAvailability(bool isAv)
 {
 	this->isAvailable = isAv;
 }
+
+void Book::addKeyWord(const std::string& word)
+{
+	keyWords.insert(word);
+	std::cout << "Word " << word << " added successfully!" << std::endl;
+}
+
 
 void Book::writeToFile(std::ofstream& ofs) const
 {
