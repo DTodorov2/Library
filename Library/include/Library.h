@@ -55,4 +55,6 @@ public:
 	void initiateRemovingBook();
 
 	void setCurrentUserIndex(int id);
+
+	size_t getUsersLen() const;
 };

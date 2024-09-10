@@ -334,6 +334,12 @@ Library::~Library()
 	free();
 }
 
+size_t Library::getUsersLen() const
+{
+	return users.size();
+}
+
+
 template void Library::readFromFile<Book>(std::ifstream& ifs, std::vector<Book>& vec);
 template void Library::readFromFile<User*>(std::ifstream& ifs, std::vector<User*>& vec);
 
