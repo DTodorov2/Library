@@ -27,7 +27,6 @@ public:
 	const std::set<std::string>& getKeyWords() const;
 	bool getAvailability() const;
 
-	void setId(int id);
 	void setAvailability(bool isAv);
 
 	void writeToFile(std::ofstream& ofs) const;
