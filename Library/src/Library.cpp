@@ -1,4 +1,5 @@
 #include "../include/Library.h"
+#include "../include/Helper.h"
 #include <iostream>
 #include <fstream>
 #include <regex>
@@ -339,6 +340,10 @@ size_t Library::getUsersLen() const
 	return users.size();
 }
 
+void Library::addUser(const std::string& username, const std::string& pass, bool isAdmin)
+{
+	users.push_back(Helper::UserFactory(username, pass, isAdmin));
+}
 
 template void Library::readFromFile<Book>(std::ifstream& ifs, std::vector<Book>& vec);
 template void Library::readFromFile<User*>(std::ifstream& ifs, std::vector<User*>& vec);

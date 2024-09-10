@@ -57,4 +57,6 @@ public:
 	void setCurrentUserIndex(int id);
 
 	size_t getUsersLen() const;
+
+	void addUser(const std::string& username, const std::string& pass, bool isAdmin);
 };
