@@ -188,7 +188,23 @@ void Admin::rateBook(std::vector<Book>& books, int id) const
 	std::cout << "Sorry, you are not allowed to give rating to books!" << std::endl;
 }
 
+void Admin::validateDesc(std::string& desc) const
+{
+	std::cout << "Enter the description: ";
+	std::getline(std::cin, desc);
+	while (desc.size() == 0)
+	{
+		std::cout << "The description must be at least 1 character long!" << std::endl;
+		std::cout << "Enter the description: ";
+		std::getline(std::cin, desc);
+	}
+}
+
+
 void Admin::addDesc(std::vector<Book>& books, int id) const
 {
-
+	std::string desc;
+	validateDesc(desc);
+	books[id].setDesc(desc);
+	std::cout << "The descripion is added successfully!" << std::endl;
 }

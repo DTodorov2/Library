@@ -38,9 +38,10 @@ void Client::rateBook(std::vector<Book>& books, int id) const
 	int rating = validateRating();
 	books[id].addRating(rating);
 	books[id].addRatedPerson(getUsername());
+	std::cout << "You have rated book with id: " << id << " successfully!" << std::endl;
 }
 
 void Client::addDesc(std::vector<Book>& books, int id) const
 {
-	
+	std::cout << "Sorry, you are not allowed to add description to books!" << std::endl;
 }

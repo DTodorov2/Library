@@ -84,6 +84,10 @@ bool Book::hasRated(const std::string& username) const
 	return false;
 }
 
+void Book::setDesc(const std::string& desc)
+{
+	this->description = desc;
+}
 
 void Book::writeToFile(std::ofstream& ofs) const
 {

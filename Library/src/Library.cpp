@@ -337,6 +337,22 @@ void Library::initiateAddingKeyWords()
 	users[currentUserIndex]->addKeyWords(books, id);
 }
 
+void Library::initiateAddingDesc()
+{
+	if (!isLoggedIn())
+	{
+		return;
+	}
+
+	std::string idStr;
+	int id = validateId(idStr, "add words to");
+	if (idStr == "exit")
+	{
+		return;
+	}
+	users[currentUserIndex]->addDesc(books, id);
+}
+
 void Library::initiateRatingBook()
 {
 	if (!isLoggedIn())

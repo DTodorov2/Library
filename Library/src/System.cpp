@@ -15,12 +15,12 @@ void validateOption(std::string& option)
 		}
 		if (option.length() == 2 && (option[0] - '0' >= 1 && option[0] - '0' <= 9))
 		{
-			if (option[1] - '0' >= 0 && option[1] - '0' <= 8)
+			if (option[1] - '0' >= 0 && option[1] - '0' <= 9)
 			{
 				return;
 			}
 		}
-		std::cout << "The number must be between 1 and 18: ";
+		std::cout << "The number must be between 1 and 19: ";
 		std::getline(std::cin, option);
 	}
 }
@@ -39,13 +39,14 @@ int chooseKey()
 	std::cout << "9 - Show a book info" << std::endl;
 	std::cout << "10 - Find a book" << std::endl;
 	std::cout << "11 - Add key words to a book" << std::endl;
-	std::cout << "12 - Rate a book" << std::endl;
-	std::cout << "13 - Sort the books" << std::endl;
-	std::cout << "14 - Add user" << std::endl;
-	std::cout << "15 - Remove user" << std::endl;
-	std::cout << "16 - Add book" << std::endl;
-	std::cout << "17 - Remove book" << std::endl;
-	std::cout << "18 - Exit" << std::endl;
+	std::cout << "12 - Add description to a book" << std::endl;
+	std::cout << "13 - Rate a book" << std::endl;
+	std::cout << "14 - Sort the books" << std::endl;
+	std::cout << "15 - Add user" << std::endl;
+	std::cout << "16 - Remove user" << std::endl;
+	std::cout << "17 - Add book" << std::endl;
+	std::cout << "18 - Remove book" << std::endl;
+	std::cout << "19 - Exit" << std::endl;
 	std::cout << "-------------------" << std::endl;
 
 	std::cout << "Choose an option: ";
@@ -121,24 +122,27 @@ void executeOption(Library& lib, int key, std::string& fileName)
 		lib.initiateAddingKeyWords();
 		break;
 	case 12:
-		lib.initiateRatingBook();
+		lib.initiateAddingDesc();
 		break;
 	case 13:
-		lib.initiateSortingBooks();
+		lib.initiateRatingBook();
 		break;
 	case 14:
-		lib.initiateAddingUser();
+		lib.initiateSortingBooks();
 		break;
 	case 15:
-		lib.initiateRemovingUser();
+		lib.initiateAddingUser();
 		break;
 	case 16:
-		lib.initiateAddingBook();
+		lib.initiateRemovingUser();
 		break;
 	case 17:
-		lib.initiateRemovingBook();
+		lib.initiateAddingBook();
 		break;
 	case 18:
+		lib.initiateRemovingBook();
+		break;
+	case 19:
 		std::cout << "Thank you for using our platform!" << std::endl;
 		exit(0);
 		break;

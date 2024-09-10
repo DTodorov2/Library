@@ -29,6 +29,7 @@ public:
 	bool getAvailability() const;
 
 	void setAvailability(bool isAv);
+	void setDesc(const std::string& desc);
 
 	void addRating(int newRating);
 

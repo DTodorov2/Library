@@ -56,6 +56,7 @@ public:
 	void initiateRemovingBook();
 	void initiateAddingKeyWords();
 	void initiateRatingBook();
+	void initiateAddingDesc();
 
 	void setCurrentUserIndex(int id);
 
