@@ -2,14 +2,16 @@
 #include "../include/Helper.h"
 #include <regex>
 #include <iostream>
+#include <ctime>
 
 Admin::Admin(const std::string& username, const std::string& pass) : User(username, pass, true) {};
 
 void Admin::validateIsAdmin(bool& isAdmin) const
 {
-	std::regex answerReg("^(yes|no)$");
+	std::regex answerReg("^(y|n|yes|no)$");
 	std::cout << "Is the user an admin? - yes/no" << std::endl;
 	std::string answer;
+	std::cout << "Your answer: ";
 	std::getline(std::cin, answer);
 	while (!std::regex_match(answer, answerReg))
 	{
@@ -90,7 +92,7 @@ void Admin::removeUser(std::vector<User*>& users, const std::string& username) c
 
 void Admin::validateBookTitleAuthor(std::string& criteria, const std::string& which) const
 {
-	std::regex reg("^[a-zA-Z]+$");
+	std::regex reg("^[a-zA-Z\. ]+$");
 	std::cout << "Enter the " << which << " of the book: ";
 	std::getline(std::cin, criteria);
 	while (!std::regex_match(criteria, reg))
@@ -107,13 +109,28 @@ void Admin::validatePubYearRating(size_t& num, const std::string& which) const
 	std::string numStr;
 	std::cout << "Enter the " << which << " of the book: ";
 	std::getline(std::cin, numStr);
+	int currentYear = 0;
+	if (which == "year")
+	{
+		std::time_t t = std::time(nullptr);
+		std::tm* localTime = std::localtime(&t);
+		currentYear = localTime->tm_year + 1900;
+	}
 	while (!std::regex_match(numStr, reg))
 	{
 		std::cout << "The " << which << " must be greater or equal to zero and have length greater than zero!" << std::endl;
 		std::cout << "Your answer: ";
 		std::getline(std::cin, numStr);
+		if (which == "year")
+		{
+			num = std::stoull(numStr);
+			if (num > currentYear)
+			{
+				std::cout << "Invalid year!" << std::endl;
+				continue;
+			}
+		}
 	}
-
 	num = std::stoull(numStr);
 }
 
@@ -126,7 +143,8 @@ void Admin::addBook(std::vector<Book>& books, int id) const
 	validateBookTitleAuthor(author, "author");
 	validatePubYearRating(pubYear, "publication year");
 	validatePubYearRating(rating, "rating");
-	//validate genre
+	std::cout << "Enter the genre of the book: ";
+	std::getline(std::cin, genre);
 
 	books.push_back(Book(id, title, author, genre, pubYear, rating));
 	std::cout << "The book is added successfully!" << std::endl;
@@ -139,9 +157,36 @@ void Admin::removeBook(std::vector<Book>& books, int id) const
 	{
 		if (books[i].getId() == id)
 		{
-			books[i].setId(-1);
+			books[i].setAvailability(false);
 			return;
 		}
 	}
 	std::cout << "The book is removed successfully!" << std::endl;
+}
+
+void Admin::validateKeyWord(std::string& word) const
+{
+	std::regex wordReg("^[a-zA-Z0-9\.\-]+$");
+	std::cout << "Enter a key word or \"exit\": ";
+	std::getline(std::cin, word);
+	while (!std::regex_match(word, wordReg))
+	{
+		std::cout << "There should not be any spaces and the length must be greater than 0!" << std::endl;
+		std::cout << "Enter a keyword or \"exit\": ";
+		std::getline(std::cin, word);
+	}
+}
+
+void Admin::addKeyWords(std::vector<Book>& books, int id) const
+{
+	std::string currWord;
+	while (true)
+	{
+		validateKeyWord(currWord);
+		if (currWord == "exit")
+		{
+			return;
+		}
+		books[id].addKeyWord(currWord);
+	}
 }
