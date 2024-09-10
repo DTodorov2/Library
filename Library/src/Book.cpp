@@ -65,6 +65,25 @@ void Book::addKeyWord(const std::string& word)
 	std::cout << "Word " << word << " added successfully!" << std::endl;
 }
 
+void Book::addRating(int newRating)
+{
+	rating = (rating + newRating) / 2;
+}
+
+void Book::addRatedPerson(const std::string& username)
+{
+	ratedPeople.insert(username);
+}
+
+bool Book::hasRated(const std::string& username) const
+{
+	if (ratedPeople.find(username) != ratedPeople.end())
+	{
+		return true;
+	}
+	return false;
+}
+
 
 void Book::writeToFile(std::ofstream& ofs) const
 {

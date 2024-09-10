@@ -14,6 +14,9 @@ class User
 	void sortBooksYear(std::vector<Book>& books, bool ascending);
 	void sortBooksRating(std::vector<Book>& books, bool ascending);
 
+protected:
+	int validateRating() const;
+
 public:
 	User() = default;
 	User(const std::string& username, const std::string& pass, bool isAdmin);
@@ -32,6 +35,8 @@ public:
 	virtual void addBook(std::vector<Book>& books, int id) const = 0;
 	virtual void removeBook(std::vector<Book>& books, int id) const = 0;
 	virtual void addKeyWords(std::vector<Book>& books, int id) const = 0;
+	virtual void rateBook(std::vector<Book>& books, int id) const = 0;
+	virtual void addDesc(std::vector<Book>& books, int id) const = 0;
 
 	void readFromFile(std::ifstream& ifs);
 	void writeToFile(std::ofstream& ofs) const;

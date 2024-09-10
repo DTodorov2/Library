@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <fstream>
+#include <regex>
 
 User::User(const std::string& username, const std::string& pass, bool isAdmin)
 {
@@ -40,6 +41,21 @@ void User::printBook(const Book& book) const
 	std::cout << "Rating: " << book.getPublicationYear() << std::endl;
 }
 
+int User::validateRating() const
+{
+	std::string rating;
+	std::regex ratingReg("^[0-5]$");
+	std::cout << "Enter the rating: ";
+	std::getline(std::cin, rating);
+	while (!std::regex_match(rating, ratingReg))
+	{
+		std::cout << "The rating must be between 0 and 5!" << std::endl;
+		std::cout << "Enter the rating: ";
+		std::getline(std::cin, rating);
+	}
+
+	return std::stoi(rating);
+}
 
 void User::booksAll(const std::vector<Book>& books) const
 {

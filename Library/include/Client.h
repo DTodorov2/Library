@@ -11,5 +11,6 @@ public:
 	void addBook(std::vector<Book>& books, int id) const override;
 	void removeBook(std::vector<Book>& books, int id) const override;
 	void addKeyWords(std::vector<Book>& books, int id) const override;
-
+	void rateBook(std::vector<Book>& books, int id) const override;
+	void addDesc(std::vector<Book>& books, int id) const override;
 };

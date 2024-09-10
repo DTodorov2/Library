@@ -18,7 +18,6 @@ class Library
 
 	bool isLoggedIn() const;
 
-
 	//template for reading books and users
 	template <typename T>
 	void readFromFile(std::ifstream& ifs, std::vector<T>& vec);
@@ -26,8 +25,6 @@ class Library
 	//template for reading books and users
 	template <typename T>
 	void writeToFile(std::ofstream& ofs, const std::vector<T>& vec) const;
-
-	void addUser(const std::string& username, const std::string& pass, bool isAdmin);
 
 	void moveFrom(Library&& other);
 	void copyFrom(const Library& other);
@@ -58,9 +55,11 @@ public:
 	void initiateAddingBook();
 	void initiateRemovingBook();
 	void initiateAddingKeyWords();
+	void initiateRatingBook();
 
 	void setCurrentUserIndex(int id);
 
 	size_t getUsersLen() const;
 
+	void addUser(const std::string& username, const std::string& pass, bool isAdmin);
 };

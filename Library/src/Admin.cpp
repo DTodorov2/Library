@@ -103,46 +103,38 @@ void Admin::validateBookTitleAuthor(std::string& criteria, const std::string& wh
 	}
 }
 
-void Admin::validatePubYearRating(size_t& num, const std::string& which) const
+void Admin::validatePubYear(size_t& num) const
 {
 	std::regex reg("^[0-9]+$");
 	std::string numStr;
-	std::cout << "Enter the " << which << " of the book: ";
+	std::cout << "Enter the publication year of the book: ";
 	std::getline(std::cin, numStr);
-	int currentYear = 0;
-	if (which == "year")
-	{
-		std::time_t t = std::time(nullptr);
-		std::tm* localTime = std::localtime(&t);
-		currentYear = localTime->tm_year + 1900;
-	}
+	std::time_t t = std::time(nullptr);
+	std::tm* localTime = std::localtime(&t);
+	int currentYear = localTime->tm_year + 1900;
 	while (!std::regex_match(numStr, reg))
 	{
-		std::cout << "The " << which << " must be greater or equal to zero and have length greater than zero!" << std::endl;
+		std::cout << "The publication year must be greater or equal to zero and have length greater than zero!" << std::endl;
 		std::cout << "Your answer: ";
 		std::getline(std::cin, numStr);
-		if (which == "year")
+		num = std::stoull(numStr);
+		if (num > currentYear)
 		{
-			num = std::stoull(numStr);
-			if (num > currentYear)
-			{
-				std::cout << "Invalid year!" << std::endl;
-				continue;
-			}
+			std::cout << "Invalid year!" << std::endl;
+			continue;
 		}
 	}
-	num = std::stoull(numStr);
 }
 
 void Admin::addBook(std::vector<Book>& books, int id) const
 {
-	std::string title, author, genre;
+	std::string title, author, genre, ratingStr;
 	size_t pubYear, rating;
 
 	validateBookTitleAuthor(title, "title");
 	validateBookTitleAuthor(author, "author");
-	validatePubYearRating(pubYear, "publication year");
-	validatePubYearRating(rating, "rating");
+	validatePubYear(pubYear);
+	rating = validateRating();
 	std::cout << "Enter the genre of the book: ";
 	std::getline(std::cin, genre);
 
@@ -189,4 +181,14 @@ void Admin::addKeyWords(std::vector<Book>& books, int id) const
 		}
 		books[id].addKeyWord(currWord);
 	}
+}
+
+void Admin::rateBook(std::vector<Book>& books, int id) const
+{
+	std::cout << "Sorry, you are not allowed to give rating to books!" << std::endl;
+}
+
+void Admin::addDesc(std::vector<Book>& books, int id) const
+{
+
 }
