@@ -36,6 +36,12 @@ const std::set<std::string>& Book::getKeyWords() const
 	return keyWords;
 }
 
+bool Book::getAvailability() const
+{
+	return isAvailable;
+}
+
+
 Book::Book(int id, const std::string& title, const std::string& author, const std::string& genre, size_t publicationYear, size_t rating)
 {
 	this->id = id;

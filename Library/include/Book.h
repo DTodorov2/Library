@@ -25,6 +25,7 @@ public:
 	const std::string& getAuthor() const;
 	const std::string& getGenre() const;
 	const std::set<std::string>& getKeyWords() const;
+	bool getAvailability() const;
 
 	void setId(int id);
 	void setAvailability(bool isAv);
