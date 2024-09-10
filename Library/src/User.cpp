@@ -27,11 +27,17 @@ bool User::isAdministrator() const
 
 void User::printBook(const Book& book) const
 {
-	std::cout << "Book number: ";
+	if (!book.getAvailability())
+	{
+		return;
+	}
+	std::cout << "\nBook number: ";
 	std::cout << book.getId() << std::endl;
-	std::cout << book.getHeading() << std::endl;
-	std::cout << book.getAuthor() << std::endl;
-	std::cout << book.getGenre() << std::endl;
+	std::cout << "Title: " << book.getHeading() << std::endl;
+	std::cout << "Author: " << book.getAuthor() << std::endl;
+	std::cout << "Genre: " << book.getGenre() << std::endl;
+	std::cout << "Publication Year: " << book.getPublicationYear() << std::endl;
+	std::cout << "Rating: " << book.getPublicationYear() << std::endl;
 }
 
 
