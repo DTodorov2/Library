@@ -44,11 +44,17 @@ Book::Book(int id, const std::string& title, const std::string& author, const st
 	this->genre = genre;
 	this->publicationYear = publicationYear;
 	this->rating = rating;
+	isAvailable = true;
 }
 
 void Book::setId(int id)
 {
 	this->id = id;
+}
+
+void Book::setAvailability(bool isAv)
+{
+	this->isAvailable = isAv;
 }
 
 void Book::writeToFile(std::ofstream& ofs) const
