@@ -16,7 +16,7 @@ void Library::login(const std::string& username, const std::string& pass)
 			return;
 		}
 	}
-	throw std::exception("No such user exists!");
+	std::cout << "No such user exists!" << std::endl;
 }
 
 void Library::logout()
@@ -125,6 +125,11 @@ void Library::help() const
 
 void Library::initiateShowingAllBooksInfo() const
 {
+	if (currentUserIndex == -1)
+	{
+		std::cout << "You need to login first!" << std::endl;
+		return;
+	}
 	users[currentUserIndex]->booksAll(books);
 }
 
@@ -150,6 +155,12 @@ int Library::validateId(std::string& idStr, const std::string& what) const
 
 void Library::initiateShowingCurrentBookInfo() const
 {
+	if (currentUserIndex == -1)
+	{
+		std::cout << "You need to login first!" << std::endl;
+		return;
+	}
+
 	std::string idStr;
 	int id = validateId(idStr, "see");
 	if (idStr == "exit")
@@ -188,6 +199,12 @@ void Library::validateSortingOption(std::string& option) const
 
 void Library::initiateFindingBook() const
 {
+	if (currentUserIndex == -1)
+	{
+		std::cout << "You need to login first!" << std::endl;
+		return;
+	}
+
 	std::string option, optionStr;
 	validateFindingOption(option);
 	std::cout << "Enter value of option: ";
@@ -217,6 +234,12 @@ void Library::validateIsAsc(bool& isAsc) const
 
 void Library::initiateSortingBooks()
 {
+	if (currentUserIndex == -1)
+	{
+		std::cout << "You need to login first!" << std::endl;
+		return;
+	}
+
 	std::string option;
 	bool isAsc;
 
@@ -228,6 +251,12 @@ void Library::initiateSortingBooks()
 
 void Library::initiateAddingUser()
 {
+	if (currentUserIndex == -1)
+	{
+		std::cout << "You need to login first!" << std::endl;
+		return;
+	}
+
 	users[currentUserIndex]->addUser(users);
 }
 
@@ -237,7 +266,7 @@ int Library::findFirstEmptyIndex() const
 	int booksLen = books.size();
 	for (size_t i = 0; i < booksLen; i++)
 	{
-		if (books[i].getId() == -1)
+		if (!books[i].getAvailability())
 		{
 			return i;
 		}
@@ -247,6 +276,12 @@ int Library::findFirstEmptyIndex() const
 
 void Library::initiateRemovingUser()
 {
+	if (currentUserIndex == -1)
+	{
+		std::cout << "You need to login first!" << std::endl;
+		return;
+	}
+
 	std::string username;
 	std::cout << "Enter username: ";
 	std::getline(std::cin, username);
@@ -255,12 +290,24 @@ void Library::initiateRemovingUser()
 
 void Library::initiateAddingBook()
 {
+	if (currentUserIndex == -1)
+	{
+		std::cout << "You need to login first!" << std::endl;
+		return;
+	}
+
 	int firstEmptyIndex = findFirstEmptyIndex();
 	users[currentUserIndex]->addBook(books, firstEmptyIndex);
 }
 
 void Library::initiateRemovingBook()
 {
+	if (currentUserIndex == -1)
+	{
+		std::cout << "You need to login first!" << std::endl;
+		return;
+	}
+
 	std::string idStr;
 	int id = validateId(idStr, "remove");
 	if (idStr == "exit")

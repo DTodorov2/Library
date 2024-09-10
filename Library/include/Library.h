@@ -25,6 +25,8 @@ class Library
 	template <typename T>
 	void writeToFile(std::ofstream& ofs, const std::vector<T>& vec) const;
 
+	void addUser(const std::string& username, const std::string& pass, bool isAdmin);
+
 	void moveFrom(Library&& other);
 	void copyFrom(const Library& other);
 	void free();
@@ -58,5 +60,4 @@ public:
 
 	size_t getUsersLen() const;
 
-	void addUser(const std::string& username, const std::string& pass, bool isAdmin);
 };
