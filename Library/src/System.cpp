@@ -13,7 +13,7 @@ void validateOption(std::string& option)
 		{
 			return;
 		}
-		if (option.length() == 2 && (option[0] - '0' >= 1 && option[0] - '0' <= 9))
+		if (option.length() == 2 && (option[0] - '0' == 1))
 		{
 			if (option[1] - '0' >= 0 && option[1] - '0' <= 9)
 			{

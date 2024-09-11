@@ -164,7 +164,15 @@ void User::booksSort(std::vector<Book>& books, const std::string& option, bool i
 	{
 		sortBooksRating(books, isAsc);
 	}
-
+	
+	size_t booksLen = books.size();
+	for (size_t i = 0; i < booksLen; i++)
+	{
+		if (books[i].getId() != -1)
+		{
+			books[i].setId(i);
+		}
+	}
 	std::cout << "The books are sorted successfully!" << std::endl;
 }
 
