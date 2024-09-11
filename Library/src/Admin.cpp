@@ -76,6 +76,7 @@ void Admin::addUser(std::vector<User*>& users) const
 	validatePass(pass);
 	User* newUser = Helper::UserFactory(username, pass, isAdmin);
 	users.push_back(newUser);
+	std::cout << "The new user is added successfully!" << std::endl;
 }
 
 void Admin::removeUser(std::vector<User*>& users, const std::string& username) const
@@ -103,13 +104,13 @@ void Admin::validateBookTitleAuthor(std::string& criteria, const std::string& wh
 	std::getline(std::cin, criteria);
 	while (!std::regex_match(criteria, reg))
 	{
-		std::cout << "The " << which << "must contain only letters and have length mre than zero!" << std::endl;
+		std::cout << "The " << which << " must contain only letters and have length more than zero!" << std::endl;
 		std::cout << "Your answer: ";
 		std::getline(std::cin, criteria);
 	}
 }
 
-void Admin::validatePubYear(size_t& num) const
+void Admin::validatePubYear(int& num) const
 {
 	std::regex reg("^[0-9]+$");
 	std::string numStr;
@@ -123,19 +124,20 @@ void Admin::validatePubYear(size_t& num) const
 		std::cout << "The publication year must be greater or equal to zero and have length greater than zero!" << std::endl;
 		std::cout << "Your answer: ";
 		std::getline(std::cin, numStr);
-		num = std::stoull(numStr);
+		num = std::stoi(numStr);
 		if (num > currentYear)
 		{
 			std::cout << "Invalid year!" << std::endl;
 			continue;
 		}
 	}
+	num = std::stoull(numStr);
 }
 
 void Admin::addBook(std::vector<Book>& books, int id) const
 {
 	std::string title, author, genre, ratingStr;
-	size_t pubYear, rating;
+	int pubYear, rating;
 
 	validateBookTitleAuthor(title, "title");
 	validateBookTitleAuthor(author, "author");

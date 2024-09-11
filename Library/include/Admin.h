@@ -8,7 +8,7 @@ class Admin : public User
 	void validateUsername(std::vector<User*>& users, std::string& username) const;
 	void validatePass(std::string& pass) const;
 	//kak da validiram genre -> dali da napravq set ot vuzmojni janrove i da proverqvam dali e vutre?
-	void validatePubYear(size_t& num) const;
+	void validatePubYear(int& num) const;
 	void validateKeyWord(std::string& word) const;
 	void validateDesc(std::string& desc) const;
 	bool isItUnique(std::vector<User*>& users, const std::string& username) const;
