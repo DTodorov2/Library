@@ -17,6 +17,7 @@ class Library
 	int findFirstEmptyIndex() const;
 
 	bool isLoggedIn() const;
+	bool canProcceed() const;
 
 	//template for reading books and users
 	template <typename T>

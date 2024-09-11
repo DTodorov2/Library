@@ -81,6 +81,11 @@ void Admin::addUser(std::vector<User*>& users) const
 void Admin::removeUser(std::vector<User*>& users, const std::string& username) const
 {
 	size_t usersLen = users.size();
+	if (getUsername() == username)
+	{
+		std::cout << "You cannot remove yourself!" << std::endl;
+		return;
+	}
 	for (size_t i = 0; i < usersLen; i++)
 	{
 		if (users[i]->getUsername() == username)

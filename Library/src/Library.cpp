@@ -125,7 +125,7 @@ void Library::help() const
 
 void Library::initiateShowingAllBooksInfo() const
 {
-	if (!isLoggedIn())
+	if (!canProcceed())
 	{
 		return;
 	}
@@ -161,7 +161,7 @@ int Library::validateId(const std::string& what) const
 
 void Library::initiateShowingCurrentBookInfo() const
 {
-	if (!isLoggedIn())
+	if (!canProcceed())
 	{
 		return;
 	}
@@ -204,7 +204,7 @@ void Library::validateSortingOption(std::string& option) const
 
 void Library::initiateFindingBook() const
 {
-	if (!isLoggedIn())
+	if (!canProcceed())
 	{
 		return;
 	}
@@ -238,7 +238,7 @@ void Library::validateIsAsc(bool& isAsc) const
 
 void Library::initiateSortingBooks()
 {
-	if (!isLoggedIn())
+	if (!canProcceed())
 	{
 		return;
 	}
@@ -313,11 +313,10 @@ void Library::initiateAddingBook()
 
 void Library::initiateRemovingBook()
 {
-	if (!isLoggedIn())
+	if (!canProcceed())
 	{
 		return;
 	}
-
 	std::string idStr;
 	int id = validateId( "remove");
 	if (id == -1)
@@ -327,13 +326,27 @@ void Library::initiateRemovingBook()
 	users[currentUserIndex]->removeBook(books, id);
 }
 
-void Library::initiateAddingKeyWords()
+bool Library::canProcceed() const
 {
 	if (!isLoggedIn())
 	{
+		return false;
+	}
+	if (books.size() == 0)
+	{
+		std::cout << "No books available!" << std::endl;
+		return false;
+	}
+	return true;
+}
+
+
+void Library::initiateAddingKeyWords()
+{
+	if (!canProcceed())
+	{
 		return;
 	}
-
 	std::string idStr;
 	int id = validateId("add words to");
 	if (id == -1)
@@ -349,7 +362,10 @@ void Library::initiateAddingDesc()
 	{
 		return;
 	}
-
+	if (books.size() == 0)
+	{
+		std::cout << "No books available!" << std::endl;
+	}
 	std::string idStr;
 	int id = validateId("add words to");
 	if (id == -1)
@@ -365,7 +381,10 @@ void Library::initiateRatingBook()
 	{
 		return;
 	}
-
+	if (books.size() == 0)
+	{
+		std::cout << "No books available!" << std::endl;
+	}
 	std::string idStr;
 	int id = validateId("rate");
 	if (id == -1)
