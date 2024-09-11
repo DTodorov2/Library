@@ -159,7 +159,7 @@ void Admin::removeBook(std::vector<Book>& books, int id, int& counter) const
 		if (books[i].getId() == id)
 		{
 			books[i].setAvailability(false);
-			return;
+			break;
 		}
 	}
 	counter--;
