@@ -147,6 +147,7 @@ void Admin::addBook(std::vector<Book>& books, int id, int& counter) const
 	std::getline(std::cin, genre);
 
 	books.push_back(Book(id, title, author, genre, pubYear, rating));
+	counter++;
 	std::cout << "The book is added successfully!" << std::endl;
 }
 
@@ -161,6 +162,7 @@ void Admin::removeBook(std::vector<Book>& books, int id, int& counter) const
 			return;
 		}
 	}
+	counter--;
 	std::cout << "The book is removed successfully!" << std::endl;
 }
 

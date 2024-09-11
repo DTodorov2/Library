@@ -312,7 +312,7 @@ void Library::initiateAddingBook()
 	}
 
 	int firstEmptyIndex = findFirstEmptyIndex();
-	users[currentUserIndex]->addBook(books, firstEmptyIndex);
+	users[currentUserIndex]->addBook(books, firstEmptyIndex, availableBooks);
 }
 
 void Library::initiateRemovingBook()
@@ -327,7 +327,7 @@ void Library::initiateRemovingBook()
 	{
 		return;
 	}
-	users[currentUserIndex]->removeBook(books, id);
+	users[currentUserIndex]->removeBook(books, id, availableBooks);
 }
 
 bool Library::canProcceed() const
