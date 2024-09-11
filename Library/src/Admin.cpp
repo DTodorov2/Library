@@ -134,7 +134,7 @@ void Admin::validatePubYear(int& num) const
 	num = std::stoull(numStr);
 }
 
-void Admin::addBook(std::vector<Book>& books, int id) const
+void Admin::addBook(std::vector<Book>& books, int id, int& counter) const
 {
 	std::string title, author, genre, ratingStr;
 	int pubYear, rating;
@@ -150,7 +150,7 @@ void Admin::addBook(std::vector<Book>& books, int id) const
 	std::cout << "The book is added successfully!" << std::endl;
 }
 
-void Admin::removeBook(std::vector<Book>& books, int id) const
+void Admin::removeBook(std::vector<Book>& books, int id, int& counter) const
 {
 	size_t booksLen = books.size();
 	for (size_t i = 0; i < booksLen; i++)

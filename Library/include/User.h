@@ -31,8 +31,8 @@ public:
 
 	virtual void addUser(std::vector<User*>& users) const = 0;
 	virtual void removeUser(std::vector<User*>& users, const std::string& username) const = 0;
-	virtual void addBook(std::vector<Book>& books, int id) const = 0;
-	virtual void removeBook(std::vector<Book>& books, int id) const = 0;
+	virtual void addBook(std::vector<Book>& books, int id, int& counter) const = 0;
+	virtual void removeBook(std::vector<Book>& books, int id, int& counter) const = 0;
 	virtual void addKeyWords(std::vector<Book>& books, int id) const = 0;
 	virtual void rateBook(std::vector<Book>& books, int id) const = 0;
 	virtual void addDesc(std::vector<Book>& books, int id) const = 0;

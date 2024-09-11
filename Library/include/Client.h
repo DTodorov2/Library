@@ -8,8 +8,8 @@ public:
 
 	void addUser(std::vector<User*>& users) const override;
 	void removeUser(std::vector<User*>& users, const std::string& username) const override;
-	void addBook(std::vector<Book>& books, int id) const override;
-	void removeBook(std::vector<Book>& books, int id) const override;
+	void addBook(std::vector<Book>& books, int id, int& counter) const override;
+	void removeBook(std::vector<Book>& books, int id, int& counter) const override;
 	void addKeyWords(std::vector<Book>& books, int id) const override;
 	void rateBook(std::vector<Book>& books, int id) const override;
 	void addDesc(std::vector<Book>& books, int id) const override;
