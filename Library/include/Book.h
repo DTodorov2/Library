@@ -13,10 +13,11 @@ class Book
 	size_t publicationYear;
 	std::set<std::string> keyWords; // using set and not unordered set, cause the worst case scenario is O(n) and for set is log(n)
 	size_t rating;
-	bool isAvailable;
+	bool isAvailable = true;
 	std::set<std::string> ratedPeople;
 
 public:
+	Book() = default;
 	Book(int id, const std::string& title, const std::string& author, const std::string& genre, size_t publicationYear, size_t rating);
 
 	int getId() const;
@@ -34,9 +35,8 @@ public:
 	void addRating(int newRating);
 
 	void writeToFile(std::ofstream& ofs) const;
-	void readFromFile(std::ifstream& ifs);
+	void readFromFile(std::ifstream& ifs, int& counter);
 	void addKeyWord(const std::string& word);
 	void addRatedPerson(const std::string& username);
 	bool hasRated(const std::string& username) const;
-	//set description
 };

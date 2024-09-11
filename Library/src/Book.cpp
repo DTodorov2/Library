@@ -121,9 +121,19 @@ void Book::writeToFile(std::ofstream& ofs) const
 	}
 
 	ofs.write((const char*)&rating, sizeof(rating));
+	ofs.write((const char*)&isAvailable, sizeof(isAvailable));
+
+	int ratedPeopleLen = ratedPeople.size();
+	ofs.write((const char*)&ratedPeopleLen, sizeof(ratedPeopleLen));
+	for (std::set<std::string>::iterator it = ratedPeople.begin(); it != ratedPeople.end(); ++it)
+	{
+		int currNameLen = it->size();
+		ofs.write((const char*)&currNameLen, sizeof(currNameLen));
+		ofs.write(it->c_str(), currNameLen);
+	}
 }
 
-void Book::readFromFile(std::ifstream& ifs)
+void Book::readFromFile(std::ifstream& ifs, int& counter)
 {
 	ifs.read((char*)&id, sizeof(id));
 
@@ -161,4 +171,20 @@ void Book::readFromFile(std::ifstream& ifs)
 	}
 
 	ifs.read((char*)&rating, sizeof(rating));
+	ifs.read((char*)&isAvailable, sizeof(isAvailable));
+	if (isAvailable)
+	{
+		counter++;
+	}
+
+	int ratedPeopleLen = 0;
+	ifs.read((char*)&ratedPeopleLen, sizeof(ratedPeopleLen));
+	for (size_t i = 0; i < ratedPeopleLen; i++)
+	{
+		int currNameLen = 0;
+		ifs.read((char*)&currNameLen, sizeof(currNameLen));
+		std::string currName(currNameLen, '\0');
+		ifs.read(&currName[0], currNameLen);
+		ratedPeople.insert(currName);
+	}
 }

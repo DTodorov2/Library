@@ -8,6 +8,7 @@ class Library
 	std::vector<Book> books;
 
 	int currentUserIndex = -1;
+	int availableBooks = 0;
 
 	void validateFileName(std::string& fileName) const;
 	int validateId(const std::string& what) const;

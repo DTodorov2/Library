@@ -31,15 +31,19 @@ void Library::readFromFile(std::ifstream& ifs, std::vector<T>& vec)
 	vec.clear();
 	size_t vecLen = 0;
 	ifs.read((char*)&vecLen, sizeof(vecLen));
+	vec.resize(vecLen);
 	for (size_t i = 0; i < vecLen; i++)
 	{
 		if constexpr (std::is_pointer<T>::value)
 		{
-			vec[i]->readFromFile(ifs);
+			std::string username, pass;
+			bool isAdmin;
+			Helper::readUserFromFile(ifs, username, pass, isAdmin);
+			vec[i] = Helper::UserFactory(username, pass, isAdmin);
 		}
 		else
 		{
-			vec[i].readFromFile(ifs);
+			vec[i].readFromFile(ifs, availableBooks);
 		}
 	}
 }
@@ -332,7 +336,7 @@ bool Library::canProcceed() const
 	{
 		return false;
 	}
-	if (books.size() == 0)
+	if (availableBooks == 0)
 	{
 		std::cout << "No books available!" << std::endl;
 		return false;
@@ -358,13 +362,9 @@ void Library::initiateAddingKeyWords()
 
 void Library::initiateAddingDesc()
 {
-	if (!isLoggedIn())
+	if (!canProcceed())
 	{
 		return;
-	}
-	if (books.size() == 0)
-	{
-		std::cout << "No books available!" << std::endl;
 	}
 	std::string idStr;
 	int id = validateId("add words to");
@@ -377,13 +377,9 @@ void Library::initiateAddingDesc()
 
 void Library::initiateRatingBook()
 {
-	if (!isLoggedIn())
+	if (!canProcceed())
 	{
 		return;
-	}
-	if (books.size() == 0)
-	{
-		std::cout << "No books available!" << std::endl;
 	}
 	std::string idStr;
 	int id = validateId("rate");
