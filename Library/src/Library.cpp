@@ -133,22 +133,28 @@ void Library::initiateShowingAllBooksInfo() const
 	users[currentUserIndex]->booksAll(books);
 }
 
-int Library::validateId(std::string& idStr, const std::string& what) const
+int Library::validateId(const std::string& what) const
 {
+	std::string idStr;
+	std::regex idReg("^[0-9]+$");
 	std::cout << "Id of the book you want to " << what << " or \"exit\": ";
 	std::getline(std::cin, idStr);
-	int id = std::stoi(idStr);
 	size_t booksLen = books.size();
-	while (id < 0 || id >= booksLen || books[id].getId() == -1)
+	while (!std::regex_match(idStr, idReg))
 	{
 		if (idStr == "exit")
 		{
 			return -1;
 		}
-		std::cout << "No such book!" << std::endl;
 		std::cout << "Id of the book you want to " << what << ": ";
 		std::getline(std::cin, idStr);
-		id = std::stoi(idStr);
+	}
+
+	int id = std::stoi(idStr);
+	if (id < 0 || id >= booksLen || books[id].getId() == -1)
+	{
+		std::cout << "No such book!" << std::endl;
+		return -1;
 	}
 	return id;
 }
@@ -161,8 +167,8 @@ void Library::initiateShowingCurrentBookInfo() const
 	}
 
 	std::string idStr;
-	int id = validateId(idStr, "see");
-	if (idStr == "exit")
+	int id = validateId("see");
+	if (id == -1)
 	{
 		return;
 	}
@@ -313,8 +319,8 @@ void Library::initiateRemovingBook()
 	}
 
 	std::string idStr;
-	int id = validateId(idStr, "remove");
-	if (idStr == "exit")
+	int id = validateId( "remove");
+	if (id == -1)
 	{
 		return;
 	}
@@ -329,8 +335,8 @@ void Library::initiateAddingKeyWords()
 	}
 
 	std::string idStr;
-	int id = validateId(idStr, "add words to");
-	if (idStr == "exit")
+	int id = validateId("add words to");
+	if (id == -1)
 	{
 		return;
 	}
@@ -345,8 +351,8 @@ void Library::initiateAddingDesc()
 	}
 
 	std::string idStr;
-	int id = validateId(idStr, "add words to");
-	if (idStr == "exit")
+	int id = validateId("add words to");
+	if (id == -1)
 	{
 		return;
 	}
@@ -361,8 +367,8 @@ void Library::initiateRatingBook()
 	}
 
 	std::string idStr;
-	int id = validateId(idStr, "rate");
-	if (idStr == "exit")
+	int id = validateId("rate");
+	if (id == -1)
 	{
 		return;
 	}

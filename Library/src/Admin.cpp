@@ -3,6 +3,7 @@
 #include <regex>
 #include <iostream>
 #include <ctime>
+#pragma warning(disable:4996)
 
 Admin::Admin(const std::string& username, const std::string& pass) : User(username, pass, true) {};
 

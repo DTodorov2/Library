@@ -10,7 +10,7 @@ class Library
 	int currentUserIndex = -1;
 
 	void validateFileName(std::string& fileName) const;
-	int validateId(std::string& idStr, const std::string& what) const;
+	int validateId(const std::string& what) const;
 	void validateFindingOption(std::string& option) const;
 	void validateSortingOption(std::string& option) const;
 	void validateIsAsc(bool& isAsc) const;
