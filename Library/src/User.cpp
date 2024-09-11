@@ -38,7 +38,7 @@ void User::printBook(const Book& book) const
 	std::cout << "Author: " << book.getAuthor() << std::endl;
 	std::cout << "Genre: " << book.getGenre() << std::endl;
 	std::cout << "Publication Year: " << book.getPublicationYear() << std::endl;
-	std::cout << "Rating: " << book.getPublicationYear() << std::endl;
+	std::cout << "Rating: " << book.getRating() << std::endl;
 }
 
 int User::validateRating() const
@@ -166,19 +166,6 @@ void User::booksSort(std::vector<Book>& books, const std::string& option, bool i
 	}
 
 	std::cout << "The books are sorted successfully!" << std::endl;
-}
-
-void User::readFromFile(std::ifstream& ifs)
-{
-	int usernameLen = 0;
-	ifs.read((char*)&usernameLen, sizeof(usernameLen));
-	username.resize(usernameLen);
-	ifs.read(&username[0], usernameLen);
-	int passLen = 0;
-	ifs.read((char*)&passLen, sizeof(passLen));
-	password.resize(passLen);
-	ifs.read(&password[0], passLen);
-	ifs.read((char*)&isAdmin, sizeof(isAdmin));
 }
 
 void User::writeToFile(std::ofstream& ofs) const

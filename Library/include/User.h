@@ -7,7 +7,6 @@ class User
 	std::string username;
 	std::string password;
 	bool isAdmin = false;
-
 	void printBook(const Book& book) const;
 	void sortBooksTitle(std::vector<Book>& books, bool ascending);
 	void sortBooksAuthor(std::vector<Book>& books, bool ascending);
@@ -38,7 +37,6 @@ public:
 	virtual void rateBook(std::vector<Book>& books, int id) const = 0;
 	virtual void addDesc(std::vector<Book>& books, int id) const = 0;
 
-	void readFromFile(std::ifstream& ifs);
 	void writeToFile(std::ofstream& ofs) const;
 
 	virtual ~User() = default;
