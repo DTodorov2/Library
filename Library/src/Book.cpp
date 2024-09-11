@@ -89,6 +89,12 @@ void Book::setDesc(const std::string& desc)
 	this->description = desc;
 }
 
+void Book::setId(int id)
+{
+	this->id = id;
+}
+
+
 void Book::writeToFile(std::ofstream& ofs) const
 {
 	ofs.write((const char*)&id, sizeof(id));

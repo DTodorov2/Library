@@ -31,6 +31,7 @@ public:
 
 	void setAvailability(bool isAv);
 	void setDesc(const std::string& desc);
+	void setId(int id);
 
 	void addRating(int newRating);
 
