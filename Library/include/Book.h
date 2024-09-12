@@ -12,13 +12,13 @@ class Book
 	std::string description;
 	size_t publicationYear;
 	std::set<std::string> keyWords; // using set and not unordered set, cause the worst case scenario is O(n) and for set is log(n)
-	size_t rating;
+	double rating;
 	bool isAvailable = true;
 	std::set<std::string> ratedPeople;
 
 public:
 	Book() = default;
-	Book(int id, const std::string& title, const std::string& author, const std::string& genre, size_t publicationYear, size_t rating);
+	Book(int id, const std::string& title, const std::string& author, const std::string& genre, size_t publicationYear, double rating);
 
 	int getId() const;
 	size_t getPublicationYear() const;

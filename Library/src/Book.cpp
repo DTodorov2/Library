@@ -43,7 +43,7 @@ bool Book::getAvailability() const
 }
 
 
-Book::Book(int id, const std::string& title, const std::string& author, const std::string& genre, size_t publicationYear, size_t rating)
+Book::Book(int id, const std::string& title, const std::string& author, const std::string& genre, size_t publicationYear, double rating)
 {
 	this->id = id;
 	heading = title;
