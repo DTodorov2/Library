@@ -74,6 +74,7 @@ void Library::open(const std::string& fileName) //opens a File
 		throw std::exception("Could not open a file");
 	}
 	readFromFile(ifs, books);
+	ifs.read((char*)&availableBooks, sizeof(availableBooks));
 	readFromFile(ifs, users);
 	ifs.close();
 	std::cout << "You opened the file successfully!" << std::endl;
@@ -93,6 +94,7 @@ void Library::save(const std::string& fileName) const
 		throw std::exception("Could not open a file!");
 	}
 	writeToFile(ofs, books);
+	ofs.write((const char*)&availableBooks, sizeof(availableBooks));
 	writeToFile(ofs, users);
 	std::cout << "File " << fileName << " saved successfully!" << std::endl;
 }
@@ -143,7 +145,6 @@ int Library::validateId(const std::string& what) const
 	std::regex idReg("^[0-9]+$");
 	std::cout << "Id of the book you want to " << what << " or \"exit\": ";
 	std::getline(std::cin, idStr);
-	size_t booksLen = books.size();
 	while (!std::regex_match(idStr, idReg))
 	{
 		if (idStr == "exit")
@@ -155,7 +156,7 @@ int Library::validateId(const std::string& what) const
 	}
 
 	int id = std::stoi(idStr);
-	if (id < 0 || id >= booksLen || books[id].getId() == -1)
+	if (id < 0 || id >= availableBooks || books[id].getId() == -1)
 	{
 		std::cout << "No such book!" << std::endl;
 		return -1;
