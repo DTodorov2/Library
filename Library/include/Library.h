@@ -15,7 +15,6 @@ class Library
 	void validateFindingOption(std::string& option) const;
 	void validateSortingOption(std::string& option) const;
 	void validateIsAsc(bool& isAsc) const;
-	int findFirstEmptyIndex() const;
 
 	bool isLoggedIn() const;
 	bool canProcceed() const;

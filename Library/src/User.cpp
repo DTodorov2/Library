@@ -91,7 +91,7 @@ void User::booksView(const std::vector<Book>& books, int bookId) const
 	printBook(books[bookId]);
 }
 
-void User::sortBooksTitle(std::vector<Book>& books, bool ascending)
+void User::sortBooksTitle(std::vector<Book>& books, bool ascending, int without)
 {
 	auto compare = [ascending](const Book& a, const Book& b)
 	{
@@ -101,10 +101,10 @@ void User::sortBooksTitle(std::vector<Book>& books, bool ascending)
 		return a.getHeading() > b.getHeading();
 	};
 
-	std::sort(books.begin(), books.end(), compare);
+	std::sort(books.begin(), books.end() - without, compare);
 }
 
-void User::sortBooksAuthor(std::vector<Book>& books, bool ascending)
+void User::sortBooksAuthor(std::vector<Book>& books, bool ascending, int without)
 {
 	auto compare = [ascending](const Book& a, const Book& b)
 	{
@@ -115,10 +115,10 @@ void User::sortBooksAuthor(std::vector<Book>& books, bool ascending)
 		return a.getAuthor() > b.getAuthor();
 	};
 
-	std::sort(books.begin(), books.end(), compare);
+	std::sort(books.begin(), books.end() - without, compare);
 }
 
-void User::sortBooksYear(std::vector<Book>& books, bool ascending)
+void User::sortBooksYear(std::vector<Book>& books, bool ascending, int without)
 {
 	auto compare = [ascending](const Book& a, const Book& b)
 	{
@@ -129,10 +129,10 @@ void User::sortBooksYear(std::vector<Book>& books, bool ascending)
 		return a.getPublicationYear() > b.getPublicationYear();
 	};
 
-	std::sort(books.begin(), books.end(), compare);
+	std::sort(books.begin(), books.end() - without, compare);
 }
 
-void User::sortBooksRating(std::vector<Book>& books, bool ascending)
+void User::sortBooksRating(std::vector<Book>& books, bool ascending, int without)
 {
 	auto compare = [ascending](const Book& a, const Book& b)
 	{
@@ -143,36 +143,28 @@ void User::sortBooksRating(std::vector<Book>& books, bool ascending)
 		return a.getRating() > b.getRating();
 	};
 
-	std::sort(books.begin(), books.end(), compare);
+	std::sort(books.begin(), books.end() - without, compare);
 }
 
-void User::booksSort(std::vector<Book>& books, const std::string& option, bool isAsc)
+void User::booksSort(std::vector<Book>& books, const std::string& option, bool isAsc, int without)
 {
 	if (option == "title")
 	{
-		sortBooksTitle(books, isAsc);
+		sortBooksTitle(books, isAsc, without);
 	}
 	else if (option == "author")
 	{
-		sortBooksAuthor(books, isAsc);
+		sortBooksAuthor(books, isAsc, without);
 	}
 	else if (option == "year")
 	{
-		sortBooksYear(books, isAsc);
+		sortBooksYear(books, isAsc, without);
 	}
 	else
 	{
-		sortBooksRating(books, isAsc);
+		sortBooksRating(books, isAsc, without);
 	}
-	
-	size_t booksLen = books.size();
-	for (size_t i = 0; i < booksLen; i++)
-	{
-		if (books[i].getId() != -1)
-		{
-			books[i].setId(i);
-		}
-	}
+
 	std::cout << "The books are sorted successfully!" << std::endl;
 }
 

@@ -253,7 +253,13 @@ void Library::initiateSortingBooks()
 	validateSortingOption(option);
 	validateIsAsc(isAsc);
 
-	users[currentUserIndex]->booksSort(books, option, isAsc);
+	int notAvailable = books.size() - availableBooks;
+	users[currentUserIndex]->booksSort(books, option, isAsc, notAvailable);
+
+	for (size_t i = 0; i < availableBooks; i++)
+	{
+		books[i].setId(i);
+	}
 }
 
 void Library::initiateAddingUser()
@@ -264,20 +270,6 @@ void Library::initiateAddingUser()
 	}
 
 	users[currentUserIndex]->addUser(users);
-}
-
-int Library::findFirstEmptyIndex() const
-{
-	int empty = -1;
-	int booksLen = books.size();
-	for (size_t i = 0; i < booksLen; i++)
-	{
-		if (!books[i].getAvailability())
-		{
-			return i;
-		}
-	}
-	return booksLen;
 }
 
 bool Library::isLoggedIn() const
@@ -311,8 +303,7 @@ void Library::initiateAddingBook()
 		return;
 	}
 
-	int firstEmptyIndex = findFirstEmptyIndex();
-	users[currentUserIndex]->addBook(books, firstEmptyIndex, availableBooks);
+	users[currentUserIndex]->addBook(books, availableBooks);
 }
 
 void Library::initiateRemovingBook()
@@ -367,7 +358,7 @@ void Library::initiateAddingDesc()
 		return;
 	}
 	std::string idStr;
-	int id = validateId("add words to");
+	int id = validateId("add description to");
 	if (id == -1)
 	{
 		return;

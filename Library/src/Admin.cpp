@@ -134,7 +134,7 @@ void Admin::validatePubYear(int& num) const
 	num = std::stoull(numStr);
 }
 
-void Admin::addBook(std::vector<Book>& books, int id, int& counter) const
+void Admin::addBook(std::vector<Book>& books, int& id) const
 {
 	std::string title, author, genre, ratingStr;
 	int pubYear, rating;
@@ -146,19 +146,36 @@ void Admin::addBook(std::vector<Book>& books, int id, int& counter) const
 	std::cout << "Enter the genre of the book: ";
 	std::getline(std::cin, genre);
 
-	books.push_back(Book(id, title, author, genre, pubYear, rating));
-	counter++;
+	if (id < books.size())
+	{
+		books[id] = Book(id, title, author, genre, pubYear, rating);
+	}
+	else
+	{
+		books.push_back(Book(id, title, author, genre, pubYear, rating));
+	}
+
+	id++;
 	std::cout << "The book is added successfully!" << std::endl;
 }
 
+void Admin::swapBooks(Book& b1, Book& b2) const
+{
+	Book tempBook = b2;
+	b2 = b1;
+	b1 = tempBook;
+}
+
+
 void Admin::removeBook(std::vector<Book>& books, int id, int& counter) const
 {
-	size_t booksLen = books.size();
-	for (size_t i = 0; i < booksLen; i++)
+	for (size_t i = 0; i < counter; i++)
 	{
 		if (books[i].getId() == id)
 		{
+			books[counter - 1].setId(books[i].getId());
 			books[i].setAvailability(false);
+			swapBooks(books[i], books[counter - 1]);
 			break;
 		}
 	}
