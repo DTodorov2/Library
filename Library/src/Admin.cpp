@@ -36,6 +36,7 @@ bool Admin::isItUnique(std::vector<User*>& users, const std::string& username) c
 	{
 		if (users[i]->getUsername() == username)
 		{
+			std::cout << "This username is already taken!" << std::endl;
 			return false;
 		}
 	}
@@ -63,7 +64,6 @@ void Admin::validateUsername(std::vector<User*>& users, std::string& username) c
 		std::cout << "The username must be at least one character!" << std::endl;
 		std::cout << "Enter username: ";
 		std::getline(std::cin, username);
-		std::cout << std::endl;
 	}
 }
 
@@ -92,9 +92,11 @@ void Admin::removeUser(std::vector<User*>& users, const std::string& username) c
 		if (users[i]->getUsername() == username)
 		{
 			users.erase(users.begin() + i);
-			break;
+			std::cout << "The user is removed successfully!" << std::endl;
+			return;
 		}
 	}
+	std::cout << "There is no user with this username!" << std::endl;
 }
 
 void Admin::validateBookTitleAuthor(std::string& criteria, const std::string& which) const
@@ -119,19 +121,27 @@ void Admin::validatePubYear(int& num) const
 	std::time_t t = std::time(nullptr);
 	std::tm* localTime = std::localtime(&t);
 	int currentYear = localTime->tm_year + 1900;
-	while (!std::regex_match(numStr, reg))
+	while (true)
 	{
-		std::cout << "The publication year must be greater or equal to zero and have length greater than zero!" << std::endl;
-		std::cout << "Your answer: ";
-		std::getline(std::cin, numStr);
-		num = std::stoi(numStr);
-		if (num > currentYear)
+		if (!std::regex_match(numStr, reg))
 		{
 			std::cout << "Invalid year!" << std::endl;
-			continue;
+			std::cout << "Your answer: ";
+			std::getline(std::cin, numStr);
 		}
+		else 
+		{
+			num = std::stoi(numStr);
+			if (num > currentYear)
+			{
+				std::cout << "Invalid year!" << std::endl;
+				std::cout << "Your answer: ";
+				std::getline(std::cin, numStr);
+				continue;
+			}
+		}
+		break;
 	}
-	num = std::stoull(numStr);
 }
 
 void Admin::addBook(std::vector<Book>& books, int& id) const
