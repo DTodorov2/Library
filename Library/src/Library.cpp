@@ -6,6 +6,11 @@
 
 void Library::login(const std::string& username, const std::string& pass)
 {
+	if (currentUserIndex != -1)
+	{
+		std::cout << "You are already logged in as " << users[currentUserIndex]->getUsername() << "!" << std::endl;
+		return;
+  	}
 	size_t usersLen = users.size();
 	for (size_t i = 0; i < usersLen; i++)
 	{
@@ -21,6 +26,11 @@ void Library::login(const std::string& username, const std::string& pass)
 
 void Library::logout()
 {
+	if (currentUserIndex == -1)
+	{
+		std::cout << "You are already logged out!" << std::endl;
+		return;
+	}
 	currentUserIndex = -1;
 	std::cout << "You logged out successfully!" << std::endl;
 }
@@ -82,12 +92,23 @@ void Library::open(const std::string& fileName) //opens a File
 
 void Library::close(std::string& fileName) // closes a file
 {
+	if (fileName == "exit")
+	{
+		std::cout << "You have not opened a file yet!" << std::endl;
+		return;
+	}
 	fileName = "exit";
+	availableBooks = 0;
 	std::cout << "File closed successfully!" << std::endl;
 }
 
 void Library::save(const std::string& fileName) const
 {
+	if (fileName == "exit")
+	{
+		std::cout << "You have not opened a file yet!" << std::endl;
+		return;
+	}
 	std::ofstream ofs(fileName, std::ios::in | std::ios::out | std::ios::trunc | std::ios::binary);
 	if (!ofs.is_open())
 	{
@@ -111,11 +132,20 @@ void Library::validateFileName(std::string& fileName) const
 	}
 }
 
-void Library::saveAs() const
+void Library::saveAs(const std::string& fileName) const
 {
-	std::string fileName;
-	validateFileName(fileName);
-	save(fileName);
+	if (fileName == "exit")
+	{
+		std::cout << "You have not opened a file yet!" << std::endl;
+		return;
+	}
+	std::string newFileName;
+	validateFileName(newFileName);
+	if (newFileName == "exit") // if a client enter "exit" as a name, the function stops
+	{
+		return;
+	}
+	save(newFileName);
 }
 
 void Library::help() const

@@ -44,7 +44,7 @@ public:
 	void open(const std::string& fileName); //opens a File
 	void close(std::string& fileName); // closes a file // oshte nz kak
 	void save(const std::string& fileName) const;
-	void saveAs() const;
+	void saveAs(const std::string& fileName) const;
 	void help() const;
 
 	void initiateShowingAllBooksInfo() const;
