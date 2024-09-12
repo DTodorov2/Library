@@ -22,7 +22,7 @@ public:
 
 	int getId() const;
 	size_t getPublicationYear() const;
-	size_t getRating() const;
+	double getRating() const;
 	const std::string& getHeading() const;
 	const std::string& getAuthor() const;
 	const std::string& getGenre() const;

@@ -12,7 +12,7 @@ size_t Book::getPublicationYear() const
 	return publicationYear;
 }
 
-size_t Book::getRating() const
+double Book::getRating() const
 {
 	return rating;
 }
@@ -67,7 +67,7 @@ void Book::addKeyWord(const std::string& word)
 
 void Book::addRating(int newRating)
 {
-	rating = (rating + newRating) / 2;
+	rating = (rating + newRating) / 2.0;
 }
 
 void Book::addRatedPerson(const std::string& username)
