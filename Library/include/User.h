@@ -24,8 +24,8 @@ public:
 	const std::string& getPass() const;
 	bool isAdministrator() const;
 
-	void booksAll(const std::vector<Book>& books) const;
-	void booksFind(const std::vector<Book>& books, const std::string& option, const std::string& optionString) const;
+	void booksAll(const std::vector<Book>& books, int counter) const;
+	void booksFind(const std::vector<Book>& books, const std::string& option, const std::string& optionString, int counter) const;
 	void booksView(const std::vector<Book>& books, int bookId) const;
 	void booksSort(std::vector<Book>& books, const std::string& option, bool isAsc, int without);
 

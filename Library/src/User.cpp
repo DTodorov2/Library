@@ -28,10 +28,6 @@ bool User::isAdministrator() const
 
 void User::printBook(const Book& book) const
 {
-	if (!book.getAvailability())
-	{
-		return;
-	}
 	std::cout << "\nBook number: ";
 	std::cout << book.getId() << std::endl;
 	std::cout << "Title: " << book.getHeading() << std::endl;
@@ -57,19 +53,17 @@ int User::validateRating() const
 	return std::stoi(rating);
 }
 
-void User::booksAll(const std::vector<Book>& books) const
+void User::booksAll(const std::vector<Book>& books, int counter) const
 {
-	size_t countBooks = books.size();
-	for (size_t i = 0; i < countBooks; i++)
+	for (size_t i = 0; i < counter; i++)
 	{
 		printBook(books[i]);
 	}
 }
 
-void User::booksFind(const std::vector<Book>& books, const std::string& option, const std::string& optionString) const
+void User::booksFind(const std::vector<Book>& books, const std::string& option, const std::string& optionString, int counter) const
 {
-	size_t booksLen = books.size();
-	for (size_t i = 0; i < booksLen; i++)
+	for (size_t i = 0; i < counter; i++)
 	{
 		if (option == "title" && books[i].getHeading() == optionString)
 		{

@@ -136,7 +136,7 @@ void Library::initiateShowingAllBooksInfo() const
 		return;
 	}
 
-	users[currentUserIndex]->booksAll(books);
+	users[currentUserIndex]->booksAll(books, availableBooks);
 }
 
 int Library::validateId(const std::string& what) const
@@ -218,7 +218,7 @@ void Library::initiateFindingBook() const
 	validateFindingOption(option);
 	std::cout << "Enter value of option: ";
 	std::getline(std::cin, optionStr);
-	users[currentUserIndex]->booksFind(books, option, optionStr);
+	users[currentUserIndex]->booksFind(books, option, optionStr, availableBooks);
 }
 
 void Library::validateIsAsc(bool& isAsc) const
