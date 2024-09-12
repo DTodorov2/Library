@@ -95,7 +95,14 @@ void executeOption(Library& lib, int key, std::string& fileName)
 		break;
 	case 3:
 		validateFileName(fileName);
-		lib.open(fileName);
+		try
+		{
+			lib.open(fileName);
+		}
+		catch (const std::exception& e)
+		{
+			std::cout << e.what() << " - File name: " << fileName << std::endl;
+		}
 		break;
 	case 4:
 		lib.close(fileName);
@@ -104,7 +111,7 @@ void executeOption(Library& lib, int key, std::string& fileName)
 		lib.save(fileName);
 		break;
 	case 6:
-		lib.saveAs();
+		lib.saveAs(fileName);
 		break;
 	case 7:
 		lib.help();
@@ -166,7 +173,7 @@ int runProgram()
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << e.what() << "- File name: " << fileName << std::endl;
+		std::cout << e.what() << " - File name: " << fileName << std::endl;
 		exit(1);
 	}
 
