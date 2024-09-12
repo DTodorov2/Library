@@ -181,17 +181,23 @@ int Library::validateId(const std::string& what) const
 		{
 			return -1;
 		}
-		std::cout << "Id of the book you want to " << what << ": ";
+		std::cout << "The id must contain digits only!" << std::endl;
+		std::cout << "Id of the book you want to " << what << " or \"exit\": ";
 		std::getline(std::cin, idStr);
 	}
 
 	int id = std::stoi(idStr);
-	if (id < 0 || id >= availableBooks || books[id].getId() == -1)
+	
+	for (size_t i = 0; i < availableBooks; i++)
 	{
-		std::cout << "No such book!" << std::endl;
-		return -1;
+		if (books[i].getId() == id)
+		{
+			return i;
+		}
 	}
-	return id;
+
+	std::cout << "No such book!" << std::endl;
+	return -1;
 }
 
 void Library::initiateShowingCurrentBookInfo() const
@@ -228,7 +234,7 @@ void Library::validateSortingOption(std::string& option) const
 	std::regex optionReg("^(title|author|year|rating)$");
 	std::cout << "Enter option (must be title, author, year, rating): ";
 	std::getline(std::cin, option);
-	if (!std::regex_match(option, optionReg))
+	while (!std::regex_match(option, optionReg))
 	{
 		std::cout << "The option must be title, author, year or rating!" << std::endl;
 		std::cout << "Enter option: ";
@@ -287,10 +293,10 @@ void Library::initiateSortingBooks()
 	int notAvailable = books.size() - availableBooks;
 	users[currentUserIndex]->booksSort(books, option, isAsc, notAvailable);
 
-	for (size_t i = 0; i < availableBooks; i++)
+	/*for (size_t i = 0; i < availableBooks; i++)
 	{
 		books[i].setId(i);
-	}
+	}*/
 }
 
 void Library::initiateAddingUser()
