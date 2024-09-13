@@ -17,9 +17,9 @@ double Book::getRating() const
 	return rating;
 }
 
-const std::string& Book::getHeading() const
+const std::string& Book::getTitle() const
 {
-	return heading;
+	return title;
 }
 
 const std::string& Book::getAuthor() const
@@ -46,7 +46,7 @@ bool Book::getAvailability() const
 Book::Book(int id, const std::string& title, const std::string& author, const std::string& genre, size_t publicationYear, double rating)
 {
 	this->id = id;
-	heading = title;
+	this->title = title;
 	this->author = author;
 	this->genre = genre;
 	this->publicationYear = publicationYear;
@@ -108,9 +108,9 @@ void Book::writeToFile(std::ofstream& ofs) const
 	ofs.write((const char*)&authorLen, sizeof(authorLen));
 	ofs.write(author.c_str(), authorLen);
 
-	int headingLen = heading.size();
+	int headingLen = title.size();
 	ofs.write((const char*)&headingLen, sizeof(headingLen));
-	ofs.write(heading.c_str(), headingLen);
+	ofs.write(title.c_str(), headingLen);
 
 	int genreLen = genre.size();
 	ofs.write((const char*)&genreLen, sizeof(genreLen));
@@ -155,8 +155,8 @@ void Book::readFromFile(std::ifstream& ifs, int& counter)
 
 	int headingLen = 0;
 	ifs.read((char*)&headingLen, sizeof(headingLen));
-	heading.resize(headingLen);
-	ifs.read(&heading[0], headingLen);
+	title.resize(headingLen);
+	ifs.read(&title[0], headingLen);
 
 	int genreLen = 0;
 	ifs.read((char*)&genreLen, sizeof(genreLen));

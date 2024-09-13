@@ -7,7 +7,7 @@ class Book
 {
 	int id;
 	std::string author;
-	std::string heading;
+	std::string title;
 	std::string genre; //moje da e enum
 	std::string description;
 	size_t publicationYear;
@@ -23,7 +23,7 @@ public:
 	int getId() const;
 	size_t getPublicationYear() const;
 	double getRating() const;
-	const std::string& getHeading() const;
+	const std::string& getTitle() const;
 	const std::string& getAuthor() const;
 	const std::string& getGenre() const;
 	const std::set<std::string>& getKeyWords() const;
