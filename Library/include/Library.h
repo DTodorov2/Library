@@ -41,8 +41,8 @@ public:
 
 	void login(const std::string& username, const std::string& pass);
 	void logout();
-	void open(const std::string& fileName); //opens a File
-	void close(std::string& fileName); // closes a file // oshte nz kak
+	void open(const std::string& fileName);
+	void close(std::string& fileName);
 	void save(const std::string& fileName) const;
 	void saveAs(const std::string& fileName) const;
 	void help() const;

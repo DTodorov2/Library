@@ -76,7 +76,7 @@ void Library::writeToFile(std::ofstream& ofs, const std::vector<T>& vec) const
 	}
 }
 
-void Library::open(const std::string& fileName) //opens a File
+void Library::open(const std::string& fileName)
 {
 	std::ifstream ifs(fileName, std::ios::in | std::ios::out | std::ios::binary);
 	if (!ifs.is_open())
@@ -90,7 +90,7 @@ void Library::open(const std::string& fileName) //opens a File
 	std::cout << "You opened the file successfully!" << std::endl;
 }
 
-void Library::close(std::string& fileName) // closes a file
+void Library::close(std::string& fileName)
 {
 	if (fileName == "exit")
 	{
@@ -328,7 +328,8 @@ void Library::initiateRemovingUser()
 	std::getline(std::cin, username);
 	users[currentUserIndex]->removeUser(users, username);
 
-	for (size_t i = 0; i < availableBooks; i++) // removes the person from the set for rating
+	// removes the person from the set for rating
+	for (size_t i = 0; i < availableBooks; i++) 
 	{
 		books[i].removeRatedPerson(username);
 	}
