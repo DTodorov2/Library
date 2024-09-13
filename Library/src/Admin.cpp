@@ -161,7 +161,7 @@ int Admin::findFirstEmptyIndex(std::vector<Book>& books) const
 	return index;
 }
 
-void Admin::addBook(std::vector<Book>& books, int& id) const
+void Admin::addBook(std::vector<Book>& books, int& counter) const
 {
 	std::string title, author, genre, ratingStr;
 	int pubYear, rating;
@@ -178,14 +178,14 @@ void Admin::addBook(std::vector<Book>& books, int& id) const
 
 	if (firstEmpty < books.size())
 	{
-		books[id] = Book(firstEmpty, title, author, genre, pubYear, rating);
+		books[counter] = Book(firstEmpty, title, author, genre, pubYear, rating);
 	}
 	else
 	{
 		books.push_back(Book(firstEmpty, title, author, genre, pubYear, rating));
 	}
 
-	id++;
+	counter++;
 	std::cout << "The book is added successfully!" << std::endl;
 }
 
@@ -207,7 +207,7 @@ void Admin::removeBook(std::vector<Book>& books, int id, int& counter) const
 
 void Admin::validateKeyWord(std::string& word) const
 {
-	std::regex wordReg("^[a-zA-Z0-9\.\-]+$");
+	std::regex wordReg("^[^\s][a-zA-Z0-9\.\-]+[^\s]$");
 	std::cout << "Enter a key word or \"exit\": ";
 	std::getline(std::cin, word);
 	while (!std::regex_match(word, wordReg))
