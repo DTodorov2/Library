@@ -4,10 +4,9 @@
 class Admin : public User
 {
 	void validateIsAdmin(bool& isAdmin) const;
-	void validateBookTitleAuthor(std::string& criteria, const std::string& which) const;
+	void validateTitleAuthorGenre(std::string& criteria, const std::string& which) const;
 	void validateUsername(std::vector<User*>& users, std::string& username) const;
 	void validatePass(std::string& pass) const;
-	//kak da validiram genre -> dali da napravq set ot vuzmojni janrove i da proverqvam dali e vutre?
 	void validatePubYear(int& num) const;
 	void validateKeyWord(std::string& word) const;
 	void validateDesc(std::string& desc) const;

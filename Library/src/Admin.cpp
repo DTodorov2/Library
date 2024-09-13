@@ -45,9 +45,10 @@ bool Admin::isItUnique(std::vector<User*>& users, const std::string& username) c
 
 void Admin::validatePass(std::string& pass) const
 {
+	std::regex passReg("^[^\s][a-zA-Z0-9\.\- ]+[^\s]$");
 	std::cout << "Enter password: ";
 	std::getline(std::cin, pass);
-	while (pass.size() == 0)
+	while (!std::regex_match(pass, passReg));
 	{
 		std::cout << "The password must be at least one character!" << std::endl;
 		std::cout << "Enter password: ";
@@ -57,11 +58,12 @@ void Admin::validatePass(std::string& pass) const
 
 void Admin::validateUsername(std::vector<User*>& users, std::string& username) const
 {
+	std::regex usernameReg("^[a-zA-Z0-9\.\-]+$");
 	std::cout << "Enter username: ";
 	std::getline(std::cin, username);
-	while (username.size() == 0 || !isItUnique(users, username))
+	while (!std::regex_match(username, usernameReg) || !isItUnique(users, username))
 	{
-		std::cout << "The username must be at least one character!" << std::endl;
+		std::cout << "The username must have at least one character and no spaces!" << std::endl;
 		std::cout << "Enter username: ";
 		std::getline(std::cin, username);
 	}
@@ -99,9 +101,9 @@ void Admin::removeUser(std::vector<User*>& users, const std::string& username) c
 	std::cout << "There is no user with this username!" << std::endl;
 }
 
-void Admin::validateBookTitleAuthor(std::string& criteria, const std::string& which) const
+void Admin::validateTitleAuthorGenre(std::string& criteria, const std::string& which) const
 {
-	std::regex reg("^[a-zA-Z\. ]+$");
+	std::regex reg("^[^\s][a-zA-Z ]+[^\s]$");
 	std::cout << "Enter the " << which << " of the book: ";
 	std::getline(std::cin, criteria);
 	while (!std::regex_match(criteria, reg))
@@ -164,8 +166,9 @@ void Admin::addBook(std::vector<Book>& books, int& id) const
 	std::string title, author, genre, ratingStr;
 	int pubYear, rating;
 
-	validateBookTitleAuthor(title, "title");
-	validateBookTitleAuthor(author, "author");
+	validateTitleAuthorGenre(title, "title");
+	validateTitleAuthorGenre(author, "author");
+	validateTitleAuthorGenre(genre, "genre");
 	validatePubYear(pubYear);
 	rating = validateRating();
 	std::cout << "Enter the genre of the book: ";
@@ -236,9 +239,10 @@ void Admin::rateBook(std::vector<Book>& books, int id) const
 
 void Admin::validateDesc(std::string& desc) const
 {
+	std::regex descReg("^[^\s].+[^\s]$");
 	std::cout << "Enter the description: ";
 	std::getline(std::cin, desc);
-	while (desc.size() == 0)
+	while (!std::regex_match(desc, descReg))
 	{
 		std::cout << "The description must be at least 1 character long!" << std::endl;
 		std::cout << "Enter the description: ";
