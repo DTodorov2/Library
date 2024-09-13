@@ -122,9 +122,10 @@ void Library::save(const std::string& fileName) const
 
 void Library::validateFileName(std::string& fileName) const
 {
+	std::regex regFileName("^[a-zA-Z0-9]+(\.txt)?$");
 	std::cout << "Enter file name: ";
 	std::getline(std::cin, fileName);
-	while (fileName.size() == 0)
+	while (!std::regex_match(fileName, regFileName))
 	{
 		std::cout << "The file name must be at least one character!" << std::endl;
 		std::cout << "Enter file name: ";
@@ -331,6 +332,11 @@ void Library::initiateRemovingUser()
 	std::cout << "Enter username: ";
 	std::getline(std::cin, username);
 	users[currentUserIndex]->removeUser(users, username);
+
+	for (size_t i = 0; i < availableBooks; i++) // removes the person from the set for rating
+	{
+		books[i].removeRatedPerson(username);
+	}
 }
 
 void Library::initiateAddingBook()
