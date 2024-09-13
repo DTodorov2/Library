@@ -219,12 +219,12 @@ void Library::initiateShowingCurrentBookInfo() const
 
 void Library::validateFindingOption(std::string& option) const
 {
-	std::regex optionReg("^(title|author|tag)$");
-	std::cout << "Enter option (must be title, author or tag): ";
+	std::regex optionReg("^(title|author|key word)$");
+	std::cout << "Enter option (must be title, author or key word): ";
 	std::getline(std::cin, option);
 	if (!std::regex_match(option, optionReg))
 	{
-		std::cout << "The option must be title, author or tag!" << std::endl;
+		std::cout << "The option must be title, author or key word!" << std::endl;
 		std::cout << "Enter option: ";
 		std::getline(std::cin, option);
 	}
@@ -293,11 +293,6 @@ void Library::initiateSortingBooks()
 
 	int notAvailable = books.size() - availableBooks;
 	users[currentUserIndex]->booksSort(books, option, isAsc, notAvailable);
-
-	/*for (size_t i = 0; i < availableBooks; i++)
-	{
-		books[i].setId(i);
-	}*/
 }
 
 void Library::initiateAddingUser()
