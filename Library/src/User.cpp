@@ -30,7 +30,7 @@ void User::printBook(const Book& book) const
 {
 	std::cout << "\nBook number: ";
 	std::cout << book.getId() << std::endl;
-	std::cout << "Title: " << book.getHeading() << std::endl;
+	std::cout << "Title: " << book.getTitle() << std::endl;
 	std::cout << "Author: " << book.getAuthor() << std::endl;
 	std::cout << "Genre: " << book.getGenre() << std::endl;
 	std::cout << "Publication Year: " << book.getPublicationYear() << std::endl;
@@ -65,7 +65,7 @@ void User::booksFind(const std::vector<Book>& books, const std::string& option, 
 {
 	for (size_t i = 0; i < counter; i++)
 	{
-		if (option == "title" && books[i].getHeading() == optionString)
+		if (option == "title" && books[i].getTitle() == optionString)
 		{
 			printBook(books[i]);
 		}
@@ -73,7 +73,7 @@ void User::booksFind(const std::vector<Book>& books, const std::string& option, 
 		{
 			printBook(books[i]);
 		}
-		else if (option == "tag" && books[i].getKeyWords().find(optionString) != books[i].getKeyWords().end())
+		else if (option == "key word" && books[i].getKeyWords().find(optionString) != books[i].getKeyWords().end())
 		{
 			printBook(books[i]);
 		}
@@ -90,9 +90,9 @@ void User::sortBooksTitle(std::vector<Book>& books, bool ascending, int without)
 	auto compare = [ascending](const Book& a, const Book& b)
 	{
 		if (ascending) {
-			return a.getHeading() < b.getHeading();
+			return a.getTitle() < b.getTitle();
 		}
-		return a.getHeading() > b.getHeading();
+		return a.getTitle() > b.getTitle();
 	};
 
 	std::sort(books.begin(), books.end() - without, compare);
