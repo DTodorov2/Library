@@ -34,10 +34,11 @@ public:
 	void setId(int id);
 
 	void addRating(int newRating);
+	void addRatedPerson(const std::string& username);
+	void removeRatedPerson(const std::string& username);
 
 	void writeToFile(std::ofstream& ofs) const;
 	void readFromFile(std::ifstream& ifs, int& counter);
 	void addKeyWord(const std::string& word);
-	void addRatedPerson(const std::string& username);
 	bool hasRated(const std::string& username) const;
 };

@@ -75,6 +75,11 @@ void Book::addRatedPerson(const std::string& username)
 	ratedPeople.insert(username);
 }
 
+void Book::removeRatedPerson(const std::string& username)
+{
+	ratedPeople.erase(username);
+}
+
 bool Book::hasRated(const std::string& username) const
 {
 	if (ratedPeople.find(username) != ratedPeople.end())
