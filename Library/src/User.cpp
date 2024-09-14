@@ -63,20 +63,28 @@ void User::booksAll(const std::vector<Book>& books, int counter) const
 
 void User::booksFind(const std::vector<Book>& books, const std::string& option, const std::string& optionString, int counter) const
 {
+	bool found = false;
 	for (size_t i = 0; i < counter; i++)
 	{
 		if (option == "title" && books[i].getTitle() == optionString)
 		{
 			printBook(books[i]);
+			found = true;
 		}
 		else if (option == "author" && books[i].getAuthor() == optionString)
 		{
 			printBook(books[i]);
+			found = true;
 		}
 		else if (option == "key word" && books[i].getKeyWords().find(optionString) != books[i].getKeyWords().end())
 		{
 			printBook(books[i]);
+			found = true;
 		}
+	}
+	if (!found)
+	{
+		std::cout << "No books found!" << std::endl;
 	}
 }
 
