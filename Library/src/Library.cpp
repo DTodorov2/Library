@@ -87,6 +87,12 @@ void Library::open(const std::string& fileName)
 	ifs.read((char*)&availableBooks, sizeof(availableBooks));
 	readFromFile(ifs, users);
 	ifs.close();
+
+	if (users.size() == 0)
+	{
+		addUser("admin", "i<3c++", true);
+	}
+
 	std::cout << "You opened the file successfully!" << std::endl;
 }
 

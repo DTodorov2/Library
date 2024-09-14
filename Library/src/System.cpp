@@ -177,11 +177,6 @@ int runProgram()
 		exit(1);
 	}
 
-	if (lib.getUsersLen() == 0)
-	{
-		lib.addUser("admin", "i<3c++", true);
-	}
-
 	while (true)
 	{
 		int key = 0;
