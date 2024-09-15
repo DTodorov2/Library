@@ -10,7 +10,7 @@ void Library::login(const std::string& username, const std::string& pass)
 	{
 		std::cout << "You are already logged in as " << users[currentUserIndex]->getUsername() << "!" << std::endl;
 		return;
-  	}
+	}
 	size_t usersLen = users.size();
 	for (size_t i = 0; i < usersLen; i++)
 	{
@@ -35,44 +35,51 @@ void Library::logout()
 	std::cout << "You logged out successfully!" << std::endl;
 }
 
-template <typename T>
-void Library::readFromFile(std::ifstream& ifs, std::vector<T>& vec)
+void Library::readFromFile(std::ifstream& ifs, std::vector<User*>& vec)
 {
 	vec.clear();
 	size_t vecLen = 0;
 	ifs.read((char*)&vecLen, sizeof(vecLen));
-	vec.resize(vecLen);
 	for (size_t i = 0; i < vecLen; i++)
 	{
-		if constexpr (std::is_pointer<T>::value)
-		{
-			std::string username, pass;
-			bool isAdmin;
-			Helper::readUserFromFile(ifs, username, pass, isAdmin);
-			vec[i] = Helper::UserFactory(username, pass, isAdmin);
-		}
-		else
-		{
-			vec[i].readFromFile(ifs, availableBooks);
-		}
+		std::string username, pass;
+		bool isAdmin;
+		Helper::readUserFromFile(ifs, username, pass, isAdmin);
+		vec.push_back(Helper::UserFactory(username, pass, isAdmin));
 	}
 }
 
-template <typename T>
-void Library::writeToFile(std::ofstream& ofs, const std::vector<T>& vec) const
+void Library::readFromFile(std::ifstream& ifs, std::vector<Book>& vec)
+{
+	vec.clear();
+	size_t vecLen = 0;
+	ifs.read((char*)&vecLen, sizeof(vecLen));
+	for (size_t i = 0; i < vecLen; i++)
+	{
+		Book newBook;
+		readBookFromFile(newBook, ifs);
+		vec.push_back(newBook);
+	}
+}
+
+
+void Library::writeToFile(std::ofstream& ofs, const std::vector<User*>& vec) const
 {
 	size_t vecLen = vec.size();
 	ofs.write((const char*)&vecLen, sizeof(vecLen));
 	for (size_t i = 0; i < vecLen; i++)
 	{
-		if constexpr (std::is_pointer<T>::value)
-		{
-			vec[i]->writeToFile(ofs);
-		}
-		else
-		{
-			vec[i].writeToFile(ofs);
-		}
+		vec[i]->writeToFile(ofs);
+	}
+}
+
+void Library::writeToFile(std::ofstream& ofs, const std::vector<Book>& vec) const
+{
+	size_t vecLen = vec.size();
+	ofs.write((const char*)&vecLen, sizeof(vecLen));
+	for (size_t i = 0; i < vecLen; i++)
+	{
+		vec[i].writeToFile(ofs);
 	}
 }
 
@@ -84,7 +91,7 @@ void Library::open(const std::string& fileName)
 		throw std::exception("Could not open a file");
 	}
 	readFromFile(ifs, books);
-	ifs.read((char*)&availableBooks, sizeof(availableBooks));
+	//ifs.read((char*)&availableBooks, sizeof(availableBooks));
 	readFromFile(ifs, users);
 	ifs.close();
 
@@ -104,7 +111,7 @@ void Library::close(std::string& fileName)
 		return;
 	}
 	fileName = "exit";
-	availableBooks = 0;
+	//availableBooks = 0;
 	std::cout << "File closed successfully!" << std::endl;
 }
 
@@ -121,7 +128,7 @@ void Library::save(const std::string& fileName) const
 		throw std::exception("Could not open a file!");
 	}
 	writeToFile(ofs, books);
-	ofs.write((const char*)&availableBooks, sizeof(availableBooks));
+	//ofs.write((const char*)&availableBooks, sizeof(availableBooks));
 	writeToFile(ofs, users);
 	std::cout << "File " << fileName << " saved successfully!" << std::endl;
 }
@@ -173,7 +180,7 @@ void Library::initiateShowingAllBooksInfo() const
 		return;
 	}
 
-	users[currentUserIndex]->booksAll(books, availableBooks);
+	users[currentUserIndex]->booksAll(books);
 }
 
 int Library::validateId(const std::string& what) const
@@ -194,8 +201,9 @@ int Library::validateId(const std::string& what) const
 	}
 
 	int id = std::stoi(idStr);
-	
-	for (size_t i = 0; i < availableBooks; i++)
+
+	int booksLen = books.size();
+	for (size_t i = 0; i < booksLen; i++)
 	{
 		if (books[i].getId() == id)
 		{
@@ -261,7 +269,7 @@ void Library::initiateFindingBook() const
 	validateFindingOption(option);
 	std::cout << "Enter value of option: ";
 	std::getline(std::cin, optionStr);
-	users[currentUserIndex]->booksFind(books, option, optionStr, availableBooks);
+	users[currentUserIndex]->booksFind(books, option, optionStr);
 }
 
 void Library::validateIsAsc(bool& isAsc) const
@@ -297,8 +305,7 @@ void Library::initiateSortingBooks()
 	validateSortingOption(option);
 	validateIsAsc(isAsc);
 
-	int notAvailable = books.size() - availableBooks;
-	users[currentUserIndex]->booksSort(books, option, isAsc, notAvailable);
+	users[currentUserIndex]->booksSort(books, option, isAsc);
 }
 
 void Library::initiateAddingUser()
@@ -335,7 +342,8 @@ void Library::initiateRemovingUser()
 	users[currentUserIndex]->removeUser(users, username);
 
 	// removes the person from the set for rating
-	for (size_t i = 0; i < availableBooks; i++) 
+	size_t booksLen = books.size();
+	for (size_t i = 0; i < booksLen; i++)
 	{
 		books[i].removeRatedPerson(username);
 	}
@@ -348,7 +356,7 @@ void Library::initiateAddingBook()
 		return;
 	}
 
-	users[currentUserIndex]->addBook(books, availableBooks);
+	users[currentUserIndex]->addBook(books);
 }
 
 void Library::initiateRemovingBook()
@@ -358,12 +366,12 @@ void Library::initiateRemovingBook()
 		return;
 	}
 	std::string idStr;
-	int id = validateId( "remove");
+	int id = validateId("remove");
 	if (id == -1)
 	{
 		return;
 	}
-	users[currentUserIndex]->removeBook(books, id, availableBooks);
+	users[currentUserIndex]->removeBook(books, id);
 }
 
 bool Library::canProcceed() const
@@ -372,7 +380,7 @@ bool Library::canProcceed() const
 	{
 		return false;
 	}
-	if (availableBooks == 0)
+	if (books.size() == 0)
 	{
 		std::cout << "No books available!" << std::endl;
 		return false;
@@ -501,8 +509,8 @@ void Library::addUser(const std::string& username, const std::string& pass, bool
 	users.push_back(Helper::UserFactory(username, pass, isAdmin));
 }
 
-template void Library::readFromFile<Book>(std::ifstream& ifs, std::vector<Book>& vec);
-template void Library::readFromFile<User*>(std::ifstream& ifs, std::vector<User*>& vec);
-
-template void Library::writeToFile<Book>(std::ofstream& ofs, const std::vector<Book>& vec) const;
-template void Library::writeToFile<User*>(std::ofstream& ofs, const std::vector<User*>& vec) const;
+//template void Library::readFromFile<Book>(std::ifstream& ifs, std::vector<Book>& vec);
+//template void Library::readFromFile<User*>(std::ifstream& ifs, std::vector<User*>& vec);
+//
+//template void Library::writeToFile<Book>(std::ofstream& ofs, const std::vector<Book>& vec) const;
+//template void Library::writeToFile<User*>(std::ofstream& ofs, const std::vector<User*>& vec) const;

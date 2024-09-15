@@ -1,5 +1,4 @@
 #include "../include/Book.h"
-#include <fstream>
 #include <iostream>
 
 int Book::getId() const
@@ -144,31 +143,31 @@ void Book::writeToFile(std::ofstream& ofs) const
 	}
 }
 
-void Book::readFromFile(std::ifstream& ifs, int& counter)
+void readBookFromFile(Book& book, std::ifstream& ifs)
 {
-	ifs.read((char*)&id, sizeof(id));
+	ifs.read((char*)&book.id, sizeof(book.id));
 
 	int authorLen = 0;
 	ifs.read((char*)&authorLen, sizeof(authorLen));
-	author.resize(authorLen);
-	ifs.read(&author[0], authorLen);
+	book.author.resize(authorLen);
+	ifs.read(&book.author[0], authorLen);
 
 	int headingLen = 0;
 	ifs.read((char*)&headingLen, sizeof(headingLen));
-	title.resize(headingLen);
-	ifs.read(&title[0], headingLen);
+	book.title.resize(headingLen);
+	ifs.read(&book.title[0], headingLen);
 
 	int genreLen = 0;
 	ifs.read((char*)&genreLen, sizeof(genreLen));
-	genre.resize(genreLen);
-	ifs.read(&genre[0], genreLen);
+	book.genre.resize(genreLen);
+	ifs.read(&book.genre[0], genreLen);
 
 	int descriptionLen = 0;
 	ifs.read((char*)&descriptionLen, sizeof(descriptionLen));
-	description.resize(descriptionLen);
-	ifs.read(&description[0], descriptionLen);
+	book.description.resize(descriptionLen);
+	ifs.read(&book.description[0], descriptionLen);
 
-	ifs.read((char*)&publicationYear, sizeof(publicationYear));
+	ifs.read((char*)&book.publicationYear, sizeof(book.publicationYear));
 
 	int keyWordsLen = 0;
 	ifs.read((char*)&keyWordsLen, sizeof(keyWordsLen));
@@ -178,15 +177,11 @@ void Book::readFromFile(std::ifstream& ifs, int& counter)
 		ifs.read((char*)&currWordLen, sizeof(currWordLen));
 		std::string currWord(currWordLen, '\0');
 		ifs.read(&currWord[0], currWordLen);
-		keyWords.insert(currWord);
+		book.keyWords.insert(currWord);
 	}
 
-	ifs.read((char*)&rating, sizeof(rating));
-	ifs.read((char*)&isAvailable, sizeof(isAvailable));
-	if (isAvailable)
-	{
-		counter++;
-	}
+	ifs.read((char*)&book.rating, sizeof(book.rating));
+	ifs.read((char*)&book.isAvailable, sizeof(book.isAvailable));
 
 	int ratedPeopleLen = 0;
 	ifs.read((char*)&ratedPeopleLen, sizeof(ratedPeopleLen));
@@ -196,6 +191,6 @@ void Book::readFromFile(std::ifstream& ifs, int& counter)
 		ifs.read((char*)&currNameLen, sizeof(currNameLen));
 		std::string currName(currNameLen, '\0');
 		ifs.read(&currName[0], currNameLen);
-		ratedPeople.insert(currName);
+		book.ratedPeople.insert(currName);
 	}
 }

@@ -8,7 +8,7 @@ class Library
 	std::vector<Book> books;
 
 	int currentUserIndex = -1;
-	int availableBooks = 0;
+	//int availableBooks = 0;
 
 	void validateFileName(std::string& fileName) const;
 	int validateId(const std::string& what) const;
@@ -19,13 +19,12 @@ class Library
 	bool isLoggedIn() const;
 	bool canProcceed() const;
 
-	//template for reading books and users
-	template <typename T>
-	void readFromFile(std::ifstream& ifs, std::vector<T>& vec);
+	void readFromFile(std::ifstream& ifs, std::vector<User*>& vec);
+	void readFromFile(std::ifstream& ifs, std::vector<Book>& vec);
 
 	//template for reading books and users
-	template <typename T>
-	void writeToFile(std::ofstream& ofs, const std::vector<T>& vec) const;
+	void writeToFile(std::ofstream& ofs, const std::vector<Book>& vec) const;
+	void writeToFile(std::ofstream& ofs, const std::vector<User*>& vec) const;
 
 	void moveFrom(Library&& other);
 	void copyFrom(const Library& other);

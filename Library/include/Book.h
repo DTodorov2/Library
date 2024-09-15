@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <fstream>
 
 class Book
 {
@@ -38,7 +39,9 @@ public:
 	void removeRatedPerson(const std::string& username);
 
 	void writeToFile(std::ofstream& ofs) const;
-	void readFromFile(std::ifstream& ifs, int& counter);
 	void addKeyWord(const std::string& word);
 	bool hasRated(const std::string& username) const;
+
+	friend void readBookFromFile(Book& book, std::ifstream& ifs);
 };
+
