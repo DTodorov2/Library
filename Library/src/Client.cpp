@@ -13,12 +13,12 @@ void Client::removeUser(std::vector<User*>& users, const std::string& username) 
 	std::cout << "Sorry, you are not allowed to remove users from the system!" << std::endl;
 }
 
-void Client::addBook(std::vector<Book>& books, int& id) const
+void Client::addBook(std::vector<Book>& books) const
 {
 	std::cout << "Sorry, you are not allowed to add books into the system!" << std::endl;
 }
 
-void Client::removeBook(std::vector<Book>& books, int id, int& counter) const
+void Client::removeBook(std::vector<Book>& books, int id) const
 {
 	std::cout << "Sorry, you are not allowed to remove books from the system!" << std::endl;
 }
