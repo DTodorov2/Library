@@ -173,7 +173,7 @@ void Library::help() const
 
 void Library::initiateShowingAllBooksInfo() const
 {
-	if (!canProcceed())
+	if (!canProceed())
 	{
 		return;
 	}
@@ -215,7 +215,7 @@ int Library::validateId(const std::string& what) const
 
 void Library::initiateShowingCurrentBookInfo() const
 {
-	if (!canProcceed())
+	if (!canProceed())
 	{
 		return;
 	}
@@ -257,7 +257,7 @@ void Library::validateSortingOption(std::string& option) const
 
 void Library::initiateFindingBook() const
 {
-	if (!canProcceed())
+	if (!canProceed())
 	{
 		return;
 	}
@@ -291,7 +291,7 @@ void Library::validateIsAsc(bool& isAsc) const
 
 void Library::initiateSortingBooks()
 {
-	if (!canProcceed())
+	if (!canProceed())
 	{
 		return;
 	}
@@ -358,7 +358,7 @@ void Library::initiateAddingBook()
 
 void Library::initiateRemovingBook()
 {
-	if (!canProcceed())
+	if (!canProceed())
 	{
 		return;
 	}
@@ -371,7 +371,7 @@ void Library::initiateRemovingBook()
 	users[currentUserIndex]->removeBook(books, id);
 }
 
-bool Library::canProcceed() const
+bool Library::canProceed() const
 {
 	if (!isLoggedIn())
 	{
@@ -388,7 +388,7 @@ bool Library::canProcceed() const
 
 void Library::initiateAddingKeyWords()
 {
-	if (!canProcceed())
+	if (!canProceed())
 	{
 		return;
 	}
@@ -403,7 +403,7 @@ void Library::initiateAddingKeyWords()
 
 void Library::initiateAddingDesc()
 {
-	if (!canProcceed())
+	if (!canProceed())
 	{
 		return;
 	}
@@ -418,7 +418,7 @@ void Library::initiateAddingDesc()
 
 void Library::initiateRatingBook()
 {
-	if (!canProcceed())
+	if (!canProceed())
 	{
 		return;
 	}

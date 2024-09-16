@@ -16,7 +16,7 @@ class Library
 	void validateIsAsc(bool& isAsc) const;
 
 	bool isLoggedIn() const;
-	bool canProcceed() const;
+	bool canProceed() const;
 
 	void readFromFile(std::ifstream& ifs, std::vector<User*>& vec);
 	void readFromFile(std::ifstream& ifs, std::vector<Book>& vec);
