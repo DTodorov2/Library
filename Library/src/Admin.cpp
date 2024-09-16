@@ -148,15 +148,28 @@ void Admin::validatePubYear(int& num) const
 	num = std::stoi(numStr);
 }
 
+bool Admin::doesIndexExist(int ind, const std::vector<Book>& books) const
+{
+	size_t booksLen = books.size();
+	for (size_t j = 0; j < booksLen; j++)
+	{
+		if (ind == books[j].getId())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 int Admin::findFirstEmptyIndex(std::vector<Book>& books) const
 {
 	size_t booksLen = books.size();
 	int index = booksLen;
 	for (size_t i = 0; i < booksLen; i++)
 	{
-		if (!books[i].getAvailability() && books[i].getId() < index)
+		if (!doesIndexExist(i, books))
 		{
-			index = books[i].getId();
+			return i;
 		}
 	}
 	return index;

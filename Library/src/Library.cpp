@@ -85,7 +85,7 @@ void Library::writeToFile(std::ofstream& ofs, const std::vector<Book>& vec) cons
 
 void Library::open(const std::string& fileName)
 {
-	std::ifstream ifs(fileName, std::ios::in | std::ios::out | std::ios::binary);
+	std::ifstream ifs(fileName, std::ios::in | std::ios::binary);
 	if (!ifs.is_open())
 	{
 		throw std::exception("Could not open a file");
@@ -135,7 +135,7 @@ void Library::save(const std::string& fileName) const
 
 void Library::validateFileName(std::string& fileName) const
 {
-	std::regex regFileName("^[a-zA-Z0-9]+(\.txt)?$");
+	std::regex regFileName("^[a-zA-Z0-9]+\\.txt$");
 	std::cout << "Enter file name: ";
 	std::getline(std::cin, fileName);
 	while (!std::regex_match(fileName, regFileName))

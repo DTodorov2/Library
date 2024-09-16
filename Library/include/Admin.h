@@ -13,6 +13,7 @@ class Admin : public User
 	bool isItUnique(std::vector<User*>& users, const std::string& username) const;
 	void swapBooks(Book& b1, Book& b2) const;
 	int findFirstEmptyIndex(std::vector<Book>& books) const;
+	bool doesIndexExist(int ind, const std::vector<Book>& books) const;
 
 public:
 	Admin(const std::string& username, const std::string& pass);
