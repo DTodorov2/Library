@@ -91,7 +91,6 @@ void Library::open(const std::string& fileName)
 		throw std::exception("Could not open a file");
 	}
 	readFromFile(ifs, books);
-	//ifs.read((char*)&availableBooks, sizeof(availableBooks));
 	readFromFile(ifs, users);
 	ifs.close();
 
@@ -111,7 +110,6 @@ void Library::close(std::string& fileName)
 		return;
 	}
 	fileName = "exit";
-	//availableBooks = 0;
 	std::cout << "File closed successfully!" << std::endl;
 }
 
@@ -128,7 +126,6 @@ void Library::save(const std::string& fileName) const
 		throw std::exception("Could not open a file!");
 	}
 	writeToFile(ofs, books);
-	//ofs.write((const char*)&availableBooks, sizeof(availableBooks));
 	writeToFile(ofs, users);
 	std::cout << "File " << fileName << " saved successfully!" << std::endl;
 }
@@ -155,7 +152,8 @@ void Library::saveAs(const std::string& fileName) const
 	}
 	std::string newFileName;
 	validateFileName(newFileName);
-	if (newFileName == "exit") // if a client enter "exit" as a name, the function stops
+	// if a client enter "exit" as a name, the function stops
+	if (newFileName == "exit") 
 	{
 		return;
 	}
@@ -256,7 +254,6 @@ void Library::validateSortingOption(std::string& option) const
 		std::getline(std::cin, option);
 	}
 }
-
 
 void Library::initiateFindingBook() const
 {
@@ -508,9 +505,3 @@ void Library::addUser(const std::string& username, const std::string& pass, bool
 {
 	users.push_back(Helper::UserFactory(username, pass, isAdmin));
 }
-
-//template void Library::readFromFile<Book>(std::ifstream& ifs, std::vector<Book>& vec);
-//template void Library::readFromFile<User*>(std::ifstream& ifs, std::vector<User*>& vec);
-//
-//template void Library::writeToFile<Book>(std::ofstream& ofs, const std::vector<Book>& vec) const;
-//template void Library::writeToFile<User*>(std::ofstream& ofs, const std::vector<User*>& vec) const;
