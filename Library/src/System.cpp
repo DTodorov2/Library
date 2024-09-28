@@ -3,76 +3,64 @@
 #include <iostream>
 #include <regex>
 
+#include <map>
+
+// Constants for menu options
+const std::map<int, std::string> menuOptions = {
+	{1, "Login"}, {2, "Logout"}, {3, "Open file"}, {4, "Close file"}, {5, "Save file"},
+	{6, "Save file as"}, {7, "Help"}, {8, "Show all books info"}, {9, "Show a book info"},
+	{10, "Find a book"}, {11, "Add key words to a book"}, {12, "Add description to a book"},
+	{13, "Rate a book"}, {14, "Sort the books"}, {15, "Add user"}, {16, "Remove user"},
+	{17, "Add book"}, {18, "Remove book"}, {19, "Exit"}
+};
+
+// Function for validating options
 void validateOption(std::string& option)
 {
+	std::regex optionRegex("^([1-9]|1[0-9])$");
+
 	std::getline(std::cin, option);
 
-	while (true)
-	{
-		if (option.length() == 1 && (option[0] - '0' >= 1 && option[0] - '0' <= 9))
-		{
-			return;
-		}
-		if (option.length() == 2 && (option[0] - '0' == 1))
-		{
-			if (option[1] - '0' >= 0 && option[1] - '0' <= 9)
-			{
-				return;
-			}
-		}
+	while (!std::regex_match(option, optionRegex)) {
 		std::cout << "The number must be between 1 and 19: ";
 		std::getline(std::cin, option);
 	}
 }
 
+// Function to display the menu and get a valid key
 int chooseKey()
 {
 	std::cout << "-------------------" << std::endl;
-	std::cout << "1 - Login" << std::endl;
-	std::cout << "2 - Logout" << std::endl;
-	std::cout << "3 - Open file" << std::endl;
-	std::cout << "4 - Close file" << std::endl;
-	std::cout << "5 - Save file" << std::endl;
-	std::cout << "6 - Save file as" << std::endl;
-	std::cout << "7 - Help" << std::endl;
-	std::cout << "8 - Show all books info" << std::endl;
-	std::cout << "9 - Show a book info" << std::endl;
-	std::cout << "10 - Find a book" << std::endl;
-	std::cout << "11 - Add key words to a book" << std::endl;
-	std::cout << "12 - Add description to a book" << std::endl;
-	std::cout << "13 - Rate a book" << std::endl;
-	std::cout << "14 - Sort the books" << std::endl;
-	std::cout << "15 - Add user" << std::endl;
-	std::cout << "16 - Remove user" << std::endl;
-	std::cout << "17 - Add book" << std::endl;
-	std::cout << "18 - Remove book" << std::endl;
-	std::cout << "19 - Exit" << std::endl;
+	for (auto it = menuOptions.begin(); it != menuOptions.end(); ++it) {
+		std::cout << it->first << " - " << it->second << std::endl;
+	}
 	std::cout << "-------------------" << std::endl;
 
 	std::cout << "Choose an option: ";
 	std::string optionStr;
 	validateOption(optionStr);
-	int optionInt = std::stoi(optionStr);
-	return optionInt;
+	return std::stoi(optionStr);
 }
 
+// Function to validate file name
 void validateFileName(std::string& fileName)
 {
-	std::regex fileNameReg("^[a-zA-Z0-9]+\.txt$");
-	std::cout << "You must open a file before procceeding with the actions or type \"exit\": ";
-	std::getline(std::cin, fileName);
-	while (!std::regex_match(fileName, fileNameReg))
-	{
-		if (fileName == "exit")
-		{
+	std::regex fileNameReg("^[a-zA-Z0-9]+\\.txt$");
+	std::cout << "Enter a file name with .txt extension or type \"exit\": ";
+
+	while (true) {
+		std::getline(std::cin, fileName);
+		if (fileName == "exit") {
 			std::cout << "Thank you for using our platform!" << std::endl;
 			exit(0);
 		}
-		std::cout << "The file name must have .txt extension and be at least one character long!" << std::endl;
-		std::cout << "File name: ";
-		std::getline(std::cin, fileName);
+		if (std::regex_match(fileName, fileNameReg)) {
+			break;
+		}
+		std::cout << "Invalid file name! The file name must have .txt extension and be at least one character long." << std::endl;
 	}
 }
+
 
 
 void executeOption(Library& lib, int key, std::string& fileName)
