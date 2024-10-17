@@ -39,5 +39,6 @@ public:
 
 	void writeToFile(std::ofstream& ofs) const;
 
+	virtual User* clone()  const = 0;
 	virtual ~User() = default;
 };

@@ -25,4 +25,6 @@ public:
 	void addKeyWords(std::vector<Book>& books, int id) const override;
 	void rateBook(std::vector<Book>& books, int id) const override;
 	void addDesc(std::vector<Book>& books, int id) const override;
+
+	User* clone() const override;
 };

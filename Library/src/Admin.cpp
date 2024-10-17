@@ -189,7 +189,6 @@ void Admin::addBook(std::vector<Book>& books) const
 	int firstEmpty = findFirstEmptyIndex(books);
 	books.push_back(Book(firstEmpty, title, author, genre, pubYear, rating));
 
-	//counter++;
 	std::cout << "The book is added successfully!" << std::endl;
 }
 
@@ -206,7 +205,6 @@ void Admin::removeBook(std::vector<Book>& books, int id) const
 	books[id].setAvailability(false);
 	swapBooks(books[id], books[books.size() - 1]);
 	books.pop_back();
-	//counter--;
 	std::cout << "The book is removed successfully!" << std::endl;
 }
 
@@ -263,4 +261,10 @@ void Admin::addDesc(std::vector<Book>& books, int id) const
 	validateDesc(desc);
 	books[id].setDesc(desc);
 	std::cout << "The descripion is added successfully!" << std::endl;
+}
+
+User* Admin::clone() const
+{
+	User* newUser = new Admin(*this);
+	return newUser;
 }

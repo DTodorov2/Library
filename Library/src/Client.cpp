@@ -45,3 +45,9 @@ void Client::addDesc(std::vector<Book>& books, int id) const
 {
 	std::cout << "Sorry, you are not allowed to add description to books!" << std::endl;
 }
+
+User* Client::clone() const
+{
+	User* newClient = new Client(*this);
+	return newClient;
+}
