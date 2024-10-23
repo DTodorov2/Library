@@ -67,7 +67,8 @@ void Book::addKeyWord(const std::string& word)
 
 void Book::addRating(int newRating)
 {
-	rating = (rating + newRating) / 2.0;
+	int ratedPeopleCount = ratedPeople.size();
+	rating = (rating * ratedPeopleCount + newRating) / (ratedPeopleCount + 1);
 }
 
 void Book::addRatedPerson(const std::string& username)

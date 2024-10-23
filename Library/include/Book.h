@@ -16,9 +16,7 @@ class Book
 	double rating;
 	bool isAvailable = true;
 	std::set<std::string> ratedPeople;
-
 	
-
 public:
 	Book() = default;
 	Book(int id, const std::string& title, const std::string& author, const std::string& genre, size_t publicationYear, double rating);
