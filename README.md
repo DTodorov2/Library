@@ -1,6 +1,5 @@
 # Library 📚
 
-Documentation for the **"Library"** Information System<br>
 This project is a developed information system for a library, containing information about a specific set of books, including their ratings, title, author, keywords, genre, and publication date.     
 The system requires a file to store and read changes made. Without such a file, work with the system cannot continue.    
 There are two types of users in the system – clients and admins.<br>
